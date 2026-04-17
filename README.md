@@ -1,128 +1,209 @@
 # Columbia Carpool Miniapp
 
-A workflow-first WeChat Mini Program MVP for Fort Lee ↔ Columbia University commuting.
+<div align="center">
 
-> A real product MVP built around a real student commute scenario. The repo now includes a **small shipped AI demo** in the create-trip flow: an AI-style departure-time suggestion based on route direction and current trip samples.
+A workflow-first WeChat Mini Program MVP for **Fort Lee ↔ Columbia University** commuting.
 
-## Project Snapshot
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![WeChat Mini Program](https://img.shields.io/badge/platform-WeChat%20Mini%20Program-07C160)](./project.config.json)
+[![AI Demo](https://img.shields.io/badge/AI%20demo-heuristic__v1-4C6FFF)](./cloudfunctions/getCreateTripHint/index.js)
+[![Status](https://img.shields.io/badge/status-MVP-orange)](#current-status)
 
-- **Product type**: WeChat Mini Program MVP
-- **Core scenario**: Fort Lee ↔ Columbia student commute
-- **Main modes**: Ride share / Uber group split
-- **Current AI scope**: lightweight departure-time recommendation (`heuristic_v1`)
-- **Positioning**: workflow-first product with an AI-native roadmap
+</div>
 
-## What problem it solves
+---
 
-This project is designed for Columbia students commuting between **Fort Lee, NJ** and **Columbia University**.
+## Overview
 
-It focuses on three concrete problems:
-- commuting cost is high because the route crosses the George Washington Bridge
-- ad-hoc coordination in group chats is inefficient
+This project is a campus carpool product prototype for Columbia students commuting between **Fort Lee, NJ** and **Columbia University**.
+
+It is built around three concrete problems:
+- commute cost is high because the route crosses the **George Washington Bridge**
+- ride coordination in group chats is inefficient
 - first-time ride sharing has a trust barrier
+
+The current MVP supports two ride modes:
+- **Ride share**: a driver posts a trip and takes passengers
+- **Uber group split**: riders form a group and split a ride
+
+> This is **not** a fully AI-native product yet. It is a real workflow MVP with one small shipped AI-style feature and a larger roadmap for future evolution.
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Product Showcase](#product-showcase)
+- [Core Features](#core-features)
+- [Shipped AI Demo](#shipped-ai-demo)
+- [Architecture](#architecture)
+- [Current Status](#current-status)
+- [Quick Start](#quick-start)
+- [Design Resources](#design-resources)
+- [Roadmap](#roadmap)
+- [License](#license)
+
+---
 
 ## Product Showcase
 
-### Homepage
+### Main screen
+
 ![Homepage](docs/screenshots/home.jpg)
 
-### Trip Detail
-![Trip Detail](docs/screenshots/trip-detail.jpg)
+### Key screens
 
-### Create Trip
-![Create Trip](docs/screenshots/create-trip.png)
+| Trip Detail | Create Trip |
+|---|---|
+| ![Trip Detail](docs/screenshots/trip-detail.jpg) | ![Create Trip](docs/screenshots/create-trip.png) |
 
-### More screens in Figma
-- [My trips](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=19-2)
-- [Join confirmation](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=21-2)
+### Figma entry points
 
-## What is implemented now
+- [Homepage](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=6-2)
+- [Trip Detail](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=12-2)
+- [Create Trip](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=15-2)
+- [My Trips](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=19-2)
+- [Join Confirmation](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=21-2)
 
-### Product workflow
-- homepage trip square
-- trip detail page
-- create trip flow
-- join confirmation flow
-- my trips page
+---
+
+## Core Features
+
+### Product flow
+- browse available trips from the homepage trip square
+- view trip route, toll breakdown, seat status, and driver info
+- create a new ride-share or Uber split trip
+- confirm joining with payment method selection
+- review active and history trips from the personal trip center
+
+### Trust and rules
 - campus verification entry
+- clear pricing explanation for toll-sharing
+- payment method selection flow
+- trip status management and seat tracking
 
-### Engineering structure
-- Mini Program frontend under `miniprogram/`
-- cloud functions under `cloudfunctions/`
-- mock data and seed data for local validation
-- product spec and UI tokens documented in the repo
+### Engineering support
+- Mini Program frontend pages and components
+- cloud functions for trip creation, joining, leaving, cancellation, and profile queries
+- mock data and seed data for local testing
 
-## Shipped AI demo
+---
 
-This repo now includes a **small real AI demo** inside the existing create-trip flow.
+## Shipped AI Demo
+
+A small AI-style feature is already implemented inside the **create-trip flow**.
 
 ### What it does
-- generates a suggested departure time when the user opens the create-trip sheet
-- updates the suggestion when the user changes mode or swaps route
-- shows:
+- generates a suggested departure time when the create-trip sheet opens
+- refreshes the suggestion when the user changes trip mode or swaps route
+- returns:
   - suggested departure time
   - confidence label
   - short reason text
   - strategy version `heuristic_v1`
-- supports **one-click apply** back into the form
+- supports **one-click apply** back into the trip form
+
+### Current implementation
+- frontend hook: `miniprogram/pages/index/index.js`
+- UI card: `miniprogram/components/create-trip-sheet/`
+- service layer: `miniprogram/services/trip.service.js`
+- backend function: `cloudfunctions/getCreateTripHint/index.js`
 
 ### What it is not
-- not a large-model assistant
-- not a full matching engine
-- not a demand forecasting system
-- not a production-grade recommendation model
+- not an LLM-powered assistant
+- not a full ride-matching engine
+- not a production recommendation system
+- not a demand forecasting model
 
-This keeps the claim honest: the repo has **one shipped AI-style capability**, while larger AI features remain part of the roadmap.
+This is intentionally scoped as a **small, honest, explainable AI demo** rather than an overstated AI claim.
 
-## AI roadmap
+---
 
-The most realistic next steps are:
+## Architecture
+
+```text
+Mini Program UI
+  └─ miniprogram/pages/*
+       └─ create-trip-sheet component
+            └─ trip.service.js
+                 └─ cloud.js
+                      └─ cloudfunctions/*
+                           ├─ createTrip
+                           ├─ joinTrip
+                           ├─ getTrips
+                           ├─ getTripDetail
+                           ├─ getMyTrips
+                           ├─ getUserProfile
+                           ├─ verifyCU
+                           └─ getCreateTripHint
+```
+
+### Key directories
+- `miniprogram/` — frontend pages, components, services, constants
+- `cloudfunctions/` — cloud function endpoints and shared backend logic
+- `cloudfunctions/common/src/` — constants, validators, repos, mappers, response helpers
+- `cloudfunctions/seeds/` — local seed data for `users` and `trips`
+- `docs/screenshots/` — README visual assets
+
+---
+
+## Current Status
+
+### Implemented
+- 5-page Mini Program structure
+- trip creation and join workflow
+- trip detail and my trips views
+- cloud function skeleton for major trip operations
+- local mock fallback in frontend service layer
+- small heuristic AI trip-hint feature
+
+### Limitations
+- some create-flow selectors still use placeholder interactions
+- payment settlement is not integrated
+- live trip fulfillment tracking is not implemented
+- AI logic is heuristic, not model-driven
+- some frontend flows rely on mock fallback for local testing
+
+---
+
+## Quick Start
+
+### Requirements
+- WeChat DevTools
+- a WeChat cloud environment
+
+### Run locally
+1. Open the repo in **WeChat DevTools**.
+2. Import the project using `project.config.json`.
+3. Set your own cloud environment ID in `miniprogram/app.js`.
+4. Create cloud database collections and import seed data from `cloudfunctions/seeds/` if needed.
+
+### Seed data
+- `cloudfunctions/seeds/users.seed.json`
+- `cloudfunctions/seeds/trips.seed.json`
+- `cloudfunctions/seeds/README.txt`
+
+---
+
+## Design Resources
+
+- Figma notes: [`docs_FIGMA.md`](./docs_FIGMA.md)
+- product spec: [`CLAUDE_CODE_PROMPT.md`](./CLAUDE_CODE_PROMPT.md)
+- UI tokens and component rules: [`UI_COMPONENTS.md`](./UI_COMPONENTS.md)
+
+---
+
+## Roadmap
+
+Potential next steps:
 - natural language trip creation
-- smart trip recommendation based on route and time
+- smarter recommendation based on route and time patterns
 - peak commute demand prediction
 - abnormal cancellation detection
 - GWB traffic-aware ride reminders
 
-## Why this project is worth reviewing
-
-- based on a **real user scenario**, not a fictional case study
-- built as a **complete workflow**, not just a UI draft
-- includes trust rules, pricing explanation, and trip-state design
-- now contains a small but real AI demo in the codebase
-- suitable for product / AI PM portfolio discussion because the scope is honest and explainable
-
-## Repository Contents
-
-- `miniprogram/` - WeChat Mini Program frontend
-- `cloudfunctions/` - cloud functions for trip creation, joining, cancellation, profile, verification, and AI hint generation
-- `CLAUDE_CODE_PROMPT.md` - product and UI specification
-- `UI_COMPONENTS.md` - UI component rules
-- `docs_FIGMA.md` - design file notes and screen mapping
-- `AI产品经理项目提炼_简历与面试稿.md` - resume and interview notes
-
-## Figma Design
-
-Main design file:
-https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI
-
-## Local Development
-
-### WeChat Mini Program
-1. Open this project in WeChat DevTools.
-2. Import the project with `project.config.json`.
-3. Set your own cloud environment ID in `miniprogram/app.js`.
-4. Create cloud database collections and import seed data from `cloudfunctions/seeds/` if needed.
-
-### Seed Data
-- `users.seed.json`
-- `trips.seed.json`
-
-## Notes
-
-- `project.private.config.json` is excluded from version control.
-- `.claude/` is excluded from version control.
-- The cloud environment ID has been cleared before open-source publishing.
+---
 
 ## License
 
-MIT
+MIT — see [`LICENSE`](./LICENSE).
