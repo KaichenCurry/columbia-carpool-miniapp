@@ -35,39 +35,39 @@
 
 ### 1. 首页 - 拼车广场
 
-![首页](./docs/screenshots/Screenshot%202026-04-17%20at%2012.37.57%20AM.png)
+![首页](./docs/screenshots/01-homepage.png)
 
-浏览可用行程，点击右侧 **+** 发起自己的拼车
+浏览可用行程，点击右侧 **+** 发起拼车
 
 ---
 
 ### 2. 行程详情
 
-![行程详情](./docs/screenshots/Screenshot%202026-04-17%20at%2012.38.03%20AM.png)
+![行程详情](./docs/screenshots/02-trip-detail.png)
 
-查看车主信息、路线、费用，点击底部按钮 **加入拼车**
+查看车主信息、路线、费用，点击 **加入拼车**
 
 ---
 
 ### 3. 发起拼车
 
-![发起拼车](./docs/screenshots/Screenshot%202026-04-17%20at%2012.38.09%20AM.png)
+![发起拼车](./docs/screenshots/03-create-trip.png)
 
-填写行程信息，点击 **发起拼车** 发布行程
+填写行程信息，点击 **发起拼车**
 
 ---
 
 ### 4. 我的行程
 
-![我的行程](./docs/screenshots/Screenshot%202026-04-17%20at%2012.38.13%20AM.png)
+![我的行程](./docs/screenshots/04-my-trips.png)
 
-切换「进行中」/「历史」查看不同状态的行程
+切换「进行中」/「历史」查看不同状态
 
 ---
 
 ### 5. 确认加入
 
-![确认加入](./docs/screenshots/Screenshot%202026-04-17%20at%2012.38.18%20AM.png)
+![确认加入](./docs/screenshots/05-confirm-join.png)
 
 确认行程和费用，点击 **确认支付**
 
