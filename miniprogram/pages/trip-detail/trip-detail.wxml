@@ -1,0 +1,80 @@
+<view wx:if="{{trip}}" class="trip-detail-page">
+  <view class="trip-detail-page__header">
+    <text class="trip-detail-page__header-icon" bindtap="handleBack">←</text>
+    <text class="trip-detail-page__header-title">行程详情</text>
+    <text class="trip-detail-page__header-menu">•••</text>
+  </view>
+
+  <view class="trip-detail-page__driver-card">
+    <view class="trip-detail-page__avatar" style="background: {{driverDisplay.avatarColor}};"></view>
+    <view class="trip-detail-page__driver-meta">
+      <view class="trip-detail-page__driver-name-row">
+        <text class="trip-detail-page__driver-name">{{driverDisplay.name}}</text>
+        <view class="trip-detail-page__driver-badge">{{driverDisplay.badgeText}}</view>
+      </view>
+      <view class="trip-detail-page__driver-stats">
+        <text class="trip-detail-page__driver-stat">⭐ 4.9</text>
+        <text class="trip-detail-page__driver-stat">86次出行</text>
+        <text class="trip-detail-page__driver-stat">NJ • ABC 1234</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="trip-detail-page__divider"></view>
+
+  <view class="trip-detail-page__section trip-detail-page__section--route">
+    <text class="trip-detail-page__section-title">行程路线</text>
+    <view class="trip-detail-page__section-gap"></view>
+    <timeline trip="{{trip}}" />
+  </view>
+
+  <view class="trip-detail-page__divider"></view>
+
+  <view class="trip-detail-page__section trip-detail-page__section--fees">
+    <text class="trip-detail-page__section-title">费用明细</text>
+    <view class="trip-detail-page__fee-list">
+      <view class="trip-detail-page__fee-row">
+        <view class="trip-detail-page__fee-label-wrap">
+          <text class="trip-detail-page__fee-label">过桥费 (GWB Toll)</text>
+          <text class="trip-detail-page__fee-note">每人固定</text>
+        </view>
+        <text class="trip-detail-page__fee-value">{{totalLabel}}</text>
+      </view>
+      <view class="trip-detail-page__fee-row">
+        <text class="trip-detail-page__fee-subtle">含油费+过桥分摊+补贴</text>
+        <text class="trip-detail-page__fee-included">已含 · 不另收费</text>
+      </view>
+      <view class="trip-detail-page__fee-divider"></view>
+      <view class="trip-detail-page__fee-row trip-detail-page__fee-row--total">
+        <text class="trip-detail-page__total-label">合计</text>
+        <view class="trip-detail-page__total-wrap">
+          <text class="trip-detail-page__total-value">{{totalLabel}}</text>
+          <text class="trip-detail-page__total-unit">/人</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="trip-detail-page__divider"></view>
+
+  <view class="trip-detail-page__section trip-detail-page__section--passengers">
+    <view class="trip-detail-page__section-row">
+      <text class="trip-detail-page__section-title">乘客</text>
+      <text class="trip-detail-page__passenger-count">2/4 座位已填</text>
+    </view>
+    <view class="trip-detail-page__passenger-list">
+      <view wx:for="{{passengerDisplayItems}}" wx:key="key" class="trip-detail-page__passenger-item">
+        <view class="trip-detail-page__passenger-avatar" style="{{item.avatarStyle}}"></view>
+        <text class="trip-detail-page__passenger-name">{{item.name}}</text>
+      </view>
+      <view wx:for="{{emptySeatItems}}" wx:key="key" class="trip-detail-page__passenger-item">
+        <view class="trip-detail-page__passenger-empty"></view>
+        <text class="trip-detail-page__passenger-empty-label">空座</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="trip-detail-page__cta-wrap">
+    <button class="trip-detail-page__cta" bindtap="handleJoin">加入拼车 · {{totalCompactLabel}}/人</button>
+  </view>
+</view>

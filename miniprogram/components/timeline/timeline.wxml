@@ -1,0 +1,49 @@
+<view wx:if="{{displayTrip}}" class="timeline">
+  <view class="timeline__node">
+    <view class="timeline__rail">
+      <view class="timeline__dot timeline__dot--start"></view>
+      <view class="timeline__line"></view>
+    </view>
+    <view class="timeline__content timeline__content--start">
+      <view class="timeline__heading-row">
+        <text class="timeline__time">{{displayTrip.departureLabel}}</text>
+        <view class="timeline__tag timeline__tag--start">{{displayTrip.departureTag}}</view>
+      </view>
+      <text class="timeline__place">{{displayTrip.departurePlace}}</text>
+    </view>
+  </view>
+
+  <view class="timeline__node timeline__node--gwb">
+    <view class="timeline__rail">
+      <view class="timeline__dot timeline__dot--gwb"></view>
+      <view class="timeline__line"></view>
+    </view>
+    <view class="timeline__content timeline__content--gwb">
+      <text class="timeline__bridge-title">{{displayTrip.gwbTitle}}</text>
+      <view class="timeline__toll-card">
+        <text class="timeline__toll-icon">🌉</text>
+        <view class="timeline__toll-main">
+          <text class="timeline__toll-caption">过桥费 (Peak Hour)</text>
+          <view class="timeline__toll-price-row">
+            <text class="timeline__toll-amount">{{gwbToll}}</text>
+            <text class="timeline__toll-arrow">→ 每位乘客</text>
+            <text class="timeline__toll-passenger">{{passengerFeeCompact}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="timeline__node timeline__node--end">
+    <view class="timeline__rail">
+      <view class="timeline__dot timeline__dot--end"></view>
+    </view>
+    <view class="timeline__content timeline__content--end">
+      <view class="timeline__heading-row">
+        <text class="timeline__time">{{displayTrip.arrivalLabel}}</text>
+        <view class="timeline__tag timeline__tag--end">{{displayTrip.arrivalTag}}</view>
+      </view>
+      <text class="timeline__place">{{displayTrip.arrivalPlace}}</text>
+    </view>
+  </view>
+</view>

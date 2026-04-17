@@ -1,0 +1,274 @@
+.my-trips-page {
+  min-height: 100vh;
+  background: #F5F7FA;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 92px);
+}
+
+.my-trips-page__header {
+  height: 56px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+}
+
+.my-trips-page__title {
+  color: #1A1A2E;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.my-trips-page__tabs {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 20px;
+  background: #FFFFFF;
+}
+
+.my-trips-page__tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 4px;
+  color: #8C94A1;
+}
+
+.my-trips-page__tab--active {
+  color: #1D4F91;
+}
+
+.my-trips-page__tab-label {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.my-trips-page__tab--active .my-trips-page__tab-label {
+  font-weight: 700;
+}
+
+.my-trips-page__tab-line {
+  width: 32px;
+  height: 3px;
+  margin-top: 6px;
+  border-radius: 1.5px;
+  background: #1D4F91;
+}
+
+.my-trips-page__content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.my-trips-page__active-card {
+  padding: 16px;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #1D4F91, #336BAB);
+  box-shadow: 0 4px 16px rgba(29, 79, 145, 0.3);
+}
+
+.my-trips-page__active-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.my-trips-page__active-pill {
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.my-trips-page__active-day {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.my-trips-page__active-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.my-trips-page__active-time {
+  color: #FFFFFF;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.my-trips-page__active-route {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+}
+
+.my-trips-page__active-bottom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.my-trips-page__active-driver {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.my-trips-page__active-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #8EABD6;
+}
+
+.my-trips-page__active-driver-name {
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.my-trips-page__active-seats {
+  margin-left: auto;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 13px;
+}
+
+.my-trips-page__active-price-pill {
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.my-trips-page__section-title {
+  color: #8C94A1;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.my-trips-page__history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.my-trips-page__history-card {
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 14px;
+  background: #FFFFFF;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.my-trips-page__history-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.my-trips-page__history-top-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.my-trips-page__history-time {
+  color: #1A1A2E;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.my-trips-page__history-tag {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.my-trips-page__history-tag--ride {
+  background: #EDF7ED;
+  color: #21A645;
+}
+
+.my-trips-page__history-tag--uber {
+  background: #FFF2E5;
+  color: #D9800D;
+}
+
+.my-trips-page__history-meta {
+  color: #8C94A1;
+  font-size: 12px;
+}
+
+.my-trips-page__history-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.my-trips-page__history-amount {
+  color: #1A1A2E;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.my-trips-page__history-saving {
+  color: #21A645;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.my-trips-page__custom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 72px;
+  padding: 8px 20px calc(env(safe-area-inset-bottom) + 8px);
+  background: #FFFFFF;
+  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.my-trips-page__nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 56px;
+}
+
+.my-trips-page__nav-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.my-trips-page__nav-label {
+  color: #999EA6;
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.my-trips-page__nav-label--active {
+  color: #1D4F91;
+  font-weight: 700;
+}

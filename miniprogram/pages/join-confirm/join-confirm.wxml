@@ -1,0 +1,88 @@
+<view wx:if="{{trip}}" class="join-page">
+  <view class="join-page__header">
+    <text class="join-page__header-icon" bindtap="handleBack">←</text>
+    <text class="join-page__header-title">确认加入</text>
+    <view class="join-page__header-spacer"></view>
+  </view>
+
+  <view class="join-page__summary-card">
+    <view class="join-page__driver-row">
+      <view class="join-page__driver-avatar" style="background: {{driverDisplay.avatarColor}};"></view>
+      <view class="join-page__driver-meta">
+        <view class="join-page__driver-name-row">
+          <text class="join-page__driver-name">{{driverDisplay.name}}</text>
+          <view class="join-page__driver-badge">{{driverDisplay.badgeText}}</view>
+        </view>
+        <text class="join-page__driver-subtitle">{{driverDisplay.subtitle}}</text>
+      </view>
+    </view>
+
+    <view class="join-page__trip-strip">
+      <text class="join-page__trip-time">{{summaryTime}}</text>
+      <view class="join-page__trip-divider"></view>
+      <text class="join-page__trip-route">{{summaryRoute}}</text>
+      <text class="join-page__trip-day">{{summaryDay}}</text>
+    </view>
+  </view>
+
+  <view class="join-page__divider"></view>
+
+  <view class="join-page__section">
+    <text class="join-page__section-title">谁在这辆车里</text>
+    <view class="join-page__rider-list">
+      <view wx:for="{{passengerItems}}" wx:key="key" class="join-page__rider-row">
+        <view class="join-page__rider-avatar" style="{{item.avatarStyle}}"></view>
+        <view class="join-page__rider-meta">
+          <text class="join-page__rider-name">{{item.name}}</text>
+          <text class="join-page__rider-detail">{{item.detail}}</text>
+        </view>
+        <view class="join-page__rider-badge">{{item.badgeText}}</view>
+      </view>
+      <view wx:for="{{emptySeatItems}}" wx:key="key" class="join-page__rider-row">
+        <view class="join-page__empty-avatar"></view>
+        <text class="join-page__empty-text">空座位 · 等待加入</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="join-page__divider"></view>
+
+  <view class="join-page__section">
+    <text class="join-page__section-title">费用说明</text>
+    <view class="join-page__fee-card">
+      <view class="join-page__fee-row">
+        <text class="join-page__fee-label">🌉 GWB过桥费</text>
+        <text class="join-page__fee-highlight">每人固定 $8.00</text>
+      </view>
+      <view class="join-page__fee-row">
+        <text class="join-page__fee-label">⛽ 油费+补贴</text>
+        <text class="join-page__fee-muted">已含</text>
+      </view>
+      <view class="join-page__fee-divider"></view>
+      <view class="join-page__fee-row join-page__fee-row--total">
+        <text class="join-page__fee-total-label">合计</text>
+        <text class="join-page__fee-total-value">{{totalLabel}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="join-page__divider"></view>
+
+  <view class="join-page__section join-page__section--payment">
+    <text class="join-page__section-title">支付方式</text>
+    <view class="join-page__payment-list">
+      <view wx:for="{{paymentOptions}}" wx:key="value" class="{{item.className}}" data-value="{{item.value}}" bindtap="handlePaymentChange">
+        <view class="{{item.iconClassName}}">{{item.icon}}</view>
+        <view class="join-page__payment-meta">
+          <text class="join-page__payment-name">{{item.label}}</text>
+          <text wx:if="{{item.subtitle}}" class="join-page__payment-subtitle">{{item.subtitle}}</text>
+        </view>
+        <text wx:if="{{item.checked}}" class="join-page__payment-check">✓</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="join-page__cta-wrap">
+    <button class="join-page__cta" bindtap="handleConfirm">确认加入 · 支付 {{totalLabel}}</button>
+  </view>
+</view>

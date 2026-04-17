@@ -1,0 +1,79 @@
+<view wx:if="{{visible && displayForm}}" class="sheet-mask" catchtap="handleClose">
+  <view class="create-sheet" catchtap="noop">
+    <view class="create-sheet__handle-wrap">
+      <view class="create-sheet__handle"></view>
+    </view>
+
+    <view class="create-sheet__title-wrap">
+      <text class="create-sheet__title">发起拼车</text>
+    </view>
+
+    <view class="create-sheet__mode-grid">
+      <view wx:for="{{modeCards}}" wx:key="value" class="{{item.className}}" data-value="{{item.value}}" bindtap="handleModeTap">
+        <text class="create-sheet__mode-icon">{{item.icon}}</text>
+        <text class="create-sheet__mode-title">{{item.title}}</text>
+        <text class="create-sheet__mode-subtitle">{{item.subtitle}}</text>
+      </view>
+    </view>
+
+    <view class="create-sheet__field-group">
+      <view class="create-sheet__label-row">
+        <view class="create-sheet__label-dot create-sheet__label-dot--start"></view>
+        <text class="create-sheet__label">出发地</text>
+      </view>
+      <view class="create-sheet__selector" data-field="from" bindtap="handleFieldTap">
+        <text class="create-sheet__selector-icon">🏠</text>
+        <view class="create-sheet__selector-texts">
+          <text class="create-sheet__selector-name">{{displayForm.fromLabel}}</text>
+          <text class="create-sheet__selector-group">{{displayForm.fromGroupLabel}}</text>
+        </view>
+        <text class="create-sheet__selector-arrow">▼</text>
+      </view>
+    </view>
+
+    <view class="create-sheet__swap-wrap">
+      <view class="create-sheet__swap" bindtap="handleSwap">↕</view>
+    </view>
+
+    <view class="create-sheet__field-group create-sheet__field-group--destination">
+      <view class="create-sheet__label-row">
+        <view class="create-sheet__label-dot create-sheet__label-dot--end"></view>
+        <text class="create-sheet__label">目的地</text>
+      </view>
+      <view class="create-sheet__selector" data-field="to" bindtap="handleFieldTap">
+        <text class="create-sheet__selector-icon">🎓</text>
+        <view class="create-sheet__selector-texts">
+          <text class="create-sheet__selector-name">{{displayForm.toLabel}}</text>
+          <text class="create-sheet__selector-group">{{displayForm.toGroupLabel}}</text>
+        </view>
+        <text class="create-sheet__selector-arrow">▼</text>
+      </view>
+    </view>
+
+    <view class="create-sheet__field-group create-sheet__field-group--time">
+      <text class="create-sheet__label">出发时间</text>
+      <view class="create-sheet__time-selector" data-field="time" bindtap="handleFieldTap">
+        <text class="create-sheet__time-icon">🕐</text>
+        <text class="create-sheet__time-label">{{displayForm.departureLabel}}</text>
+        <text class="create-sheet__selector-arrow">▼</text>
+      </view>
+    </view>
+
+    <view class="create-sheet__field-group create-sheet__field-group--seats">
+      <text class="create-sheet__label">可带人数</text>
+      <view class="create-sheet__seat-grid">
+        <view wx:for="{{seatOptions}}" wx:key="value" class="{{item.className}}" data-value="{{item.value}}" bindtap="handleSeatTap">{{item.value}}</view>
+      </view>
+    </view>
+
+    <view class="create-sheet__fee-preview">
+      <text class="create-sheet__fee-check">✅</text>
+      <text class="create-sheet__fee-text">过桥费: 每位乘客固定 </text>
+      <text class="create-sheet__fee-price">${{passengerFee}}/人</text>
+    </view>
+
+    <view class="create-sheet__submit-wrap">
+      <button class="create-sheet__submit" bindtap="handleSubmit">发起拼车</button>
+    </view>
+  </view>
+</view>

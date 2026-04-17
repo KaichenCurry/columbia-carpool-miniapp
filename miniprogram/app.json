@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/trip-detail/trip-detail",
+    "pages/my-trips/my-trips",
+    "pages/join-confirm/join-confirm",
+    "pages/my/my"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTitleText": "Fort Lee ↔ Columbia 拼车",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F5F7FA"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

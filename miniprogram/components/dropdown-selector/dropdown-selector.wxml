@@ -1,0 +1,8 @@
+<view class="dropdown-selector" bindtap="handleTap">
+  <text class="dropdown-selector__icon">{{icon}}</text>
+  <view>
+    <text class="dropdown-selector__name">{{label}}</text>
+    <text class="dropdown-selector__group">{{groupLabel}}</text>
+  </view>
+  <text class="dropdown-selector__arrow">{{arrow}}</text>
+</view>

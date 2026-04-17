@@ -1,0 +1,87 @@
+.my-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.my-page__profile-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.my-page__avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+}
+
+.my-page__profile-meta {
+  flex: 1;
+}
+
+.my-page__name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.my-page__payment-list {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.my-page__payment-pill {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.my-page__payment-detail {
+  margin-top: 14px;
+}
+
+.my-page__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.my-page__action-card {
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--color-bg-input);
+}
+
+.my-page__action-title {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.my-page__action-subtitle {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.my-page__disclaimer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.my-page__disclaimer-item {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}

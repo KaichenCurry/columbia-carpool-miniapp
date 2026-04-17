@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "timeline": "/components/timeline/timeline",
+    "seats": "/components/seats/seats"
+  }
+}

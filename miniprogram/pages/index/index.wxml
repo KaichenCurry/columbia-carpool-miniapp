@@ -1,0 +1,67 @@
+<view class="index-page safe-bottom">
+  <view class="index-page__hero">
+    <view class="index-page__hero-header">
+      <view>
+        <text class="index-page__title">拼车广场</text>
+        <text class="index-page__subtitle">Fort Lee ↔ Columbia 通勤拼车</text>
+      </view>
+      <view class="index-page__summary-chip">
+        <view class="index-page__summary-dot"></view>
+        <text class="index-page__summary-text">今日 {{tripCountToday}} 人出行</text>
+      </view>
+    </view>
+
+    <view class="index-page__hero-card">
+      <text class="index-page__hero-card-title">路线你已经熟悉，我们帮你更快找到同路人</text>
+      <text class="index-page__hero-card-text">按模式浏览可加入行程，或直接发起新的顺风车 / Uber 拼单。</text>
+    </view>
+  </view>
+
+  <view class="index-page__content-shell">
+    <view class="index-page__tabs">
+      <view wx:for="{{modeTabs}}" wx:key="key" class="{{item.className}}" data-mode="{{item.key}}" bindtap="handleModeChange">
+        <text class="index-page__tab-label">{{item.label}}</text>
+        <view wx:if="{{item.active}}" class="index-page__tab-line"></view>
+      </view>
+    </view>
+
+    <scroll-view class="index-page__list" scroll-y>
+      <trip-card
+        wx:for="{{trips}}"
+        wx:key="tripId"
+        trip="{{item}}"
+        variant="home"
+        bind:cardtap="handleTripTap"
+        bind:join="handleJoinTrip"
+      />
+
+      <view wx:if="{{!loading && !trips.length}}" class="index-page__empty trip-card">
+        <text class="section-title">{{emptyStateLabel}}</text>
+        <text class="section-subtitle">切换模式或稍后刷新，也可以直接发起拼车。</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="fab" bindtap="openCreateSheet">
+    <text class="fab__icon">+</text>
+    <text class="fab__label">发起</text>
+  </view>
+
+  <view class="index-page__custom-nav">
+    <view wx:for="{{bottomNavItems}}" wx:key="key" class="index-page__nav-item" data-key="{{item.key}}" bindtap="handleBottomNavTap">
+      <text class="{{item.iconClassName}}">{{item.icon}}</text>
+      <text class="{{item.labelClassName}}">{{item.label}}</text>
+    </view>
+  </view>
+
+  <create-trip-sheet
+    visible="{{createSheetVisible}}"
+    form="{{createForm}}"
+    bind:close="closeCreateSheet"
+    bind:submit="handleCreateSubmit"
+    bind:swap="handleCreateSwap"
+    bind:changemode="handleCreateModeChange"
+    bind:changeseat="handleCreateSeatChange"
+    bind:tapfield="handleCreateFieldTap"
+  />
+</view>

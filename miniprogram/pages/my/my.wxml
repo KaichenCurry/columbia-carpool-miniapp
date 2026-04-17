@@ -1,0 +1,51 @@
+<view wx:if="{{user}}" class="container safe-bottom my-page">
+  <view class="trip-card my-page__profile-card">
+    <view class="my-page__profile-top">
+      <image class="my-page__avatar" src="{{user.avatarUrl}}" mode="aspectFill" />
+      <view class="my-page__profile-meta">
+        <view class="my-page__name-row">
+          <text class="section-title">{{user.nickName}}</text>
+          <view wx:if="{{user.cuVerified}}" class="cu-badge">
+            <text>🎓</text>
+            <text>已认证</text>
+          </view>
+        </view>
+        <text class="muted">{{user.cuEmail}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="trip-card">
+    <text class="section-title">支付方式</text>
+    <view class="my-page__payment-list">
+      <view wx:for="{{paymentMethodLabels}}" wx:key="*this" class="my-page__payment-pill">{{item}}</view>
+    </view>
+    <view class="card-stack my-page__payment-detail">
+      <view wx:if="{{user.zelleAccount}}" class="card-row">
+        <text>Zelle</text>
+        <text class="muted">{{user.zelleAccount}}</text>
+      </view>
+      <view wx:if="{{user.venmoAccount}}" class="card-row">
+        <text>Venmo</text>
+        <text class="muted">{{user.venmoAccount}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="trip-card">
+    <text class="section-title">常用入口</text>
+    <view class="my-page__actions">
+      <view wx:for="{{actionCards}}" wx:key="key" class="my-page__action-card" data-title="{{item.title}}" bindtap="handleCardTap">
+        <text class="my-page__action-title">{{item.title}}</text>
+        <text class="my-page__action-subtitle">{{item.subtitle}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="trip-card">
+    <text class="section-title">免责声明</text>
+    <view class="my-page__disclaimer-list">
+      <text wx:for="{{disclaimerItems}}" wx:key="*this" class="my-page__disclaimer-item">• {{item}}</text>
+    </view>
+  </view>
+</view>

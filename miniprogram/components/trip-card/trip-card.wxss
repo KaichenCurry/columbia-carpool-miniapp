@@ -1,0 +1,188 @@
+.trip-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  margin-bottom: 12px;
+}
+
+.trip-card--home {
+  margin-bottom: 14px;
+}
+
+.trip-card__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.trip-card__avatar-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.trip-card__meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.trip-card__meta-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.trip-card__name {
+  color: #1A1A2E;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.trip-card__cu-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #E0EDF7;
+}
+
+.trip-card__cu-icon {
+  font-size: 10px;
+  line-height: 1;
+}
+
+.trip-card__cu-text {
+  color: #1D4F91;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.trip-card__sub {
+  color: #8C94A1;
+  font-size: 12px;
+}
+
+.trip-card__type-tag {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.trip-card__type-tag--ride {
+  background: #EDF7ED;
+  color: #21A645;
+}
+
+.trip-card__type-tag--uber {
+  background: #FFF2E5;
+  color: #D9800D;
+}
+
+.trip-card__middle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.trip-card__time-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 64px;
+}
+
+.trip-card__time {
+  color: #1A1A2E;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.trip-card__time-suffix {
+  color: #8C94A1;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.trip-card__route {
+  flex: 1;
+  color: #6B7380;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.trip-card__seat-wrap {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.trip-card__uber-hint {
+  margin-left: auto;
+  color: #F59E0A;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.trip-card__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.trip-card__price-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.trip-card__price-prefix {
+  color: #8C94A1;
+  font-size: 13px;
+}
+
+.trip-card__price {
+  color: #1D4F91;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.trip-card__price--uber {
+  color: #F59E0A;
+}
+
+.trip-card__price-suffix {
+  color: #8C94A1;
+  font-size: 13px;
+}
+
+.trip-card__action {
+  min-width: 108px;
+  height: 40px;
+  margin: 0;
+  padding: 0 20px;
+  border-radius: 12px;
+  background: #1D4F91;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 40px;
+  flex-shrink: 0;
+}
+
+.trip-card__action--uber {
+  background: #F59E0A;
+}

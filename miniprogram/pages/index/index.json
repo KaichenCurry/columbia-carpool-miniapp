@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "trip-card": "/components/trip-card/trip-card",
+    "create-trip-sheet": "/components/create-trip-sheet/create-trip-sheet"
+  }
+}

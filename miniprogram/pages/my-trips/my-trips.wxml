@@ -1,0 +1,58 @@
+<view class="my-trips-page safe-bottom">
+  <view class="my-trips-page__header">
+    <text class="my-trips-page__title">我的行程</text>
+  </view>
+
+  <view class="my-trips-page__tabs">
+    <view wx:for="{{tabs}}" wx:key="key" class="{{item.className}}" data-tab="{{item.key}}" bindtap="handleTabChange">
+      <text class="my-trips-page__tab-label">{{item.label}}</text>
+      <view wx:if="{{activeTab === item.key}}" class="my-trips-page__tab-line"></view>
+    </view>
+  </view>
+
+  <view class="my-trips-page__content">
+    <view wx:if="{{activeTab === 'active' && activeTrip}}" class="my-trips-page__active-card" data-trip-id="{{activeTrip.tripId}}" bindtap="handleOpenTrip">
+      <view class="my-trips-page__active-top">
+        <view class="my-trips-page__active-pill">• 待出发</view>
+        <text class="my-trips-page__active-day">{{activeTrip.dayLabel}}</text>
+      </view>
+      <view class="my-trips-page__active-main">
+        <text class="my-trips-page__active-time">{{activeTrip.timeLabel}}</text>
+        <text class="my-trips-page__active-route">{{activeTrip.routeLabel}}</text>
+      </view>
+      <view class="my-trips-page__active-bottom">
+        <view class="my-trips-page__active-driver">
+          <view class="my-trips-page__active-avatar"></view>
+          <text class="my-trips-page__active-driver-name">{{activeTrip.driverName}}</text>
+        </view>
+        <text class="my-trips-page__active-seats">{{activeTrip.seatsLabel}}</text>
+        <view class="my-trips-page__active-price-pill">{{activeTrip.priceLabel}}</view>
+      </view>
+    </view>
+
+    <text class="my-trips-page__section-title">近期行程</text>
+
+    <view class="my-trips-page__history-list">
+      <view wx:for="{{historyTrips}}" wx:key="key" class="my-trips-page__history-card" data-trip-id="{{item.key}}" bindtap="handleOpenTrip">
+        <view class="my-trips-page__history-main">
+          <view class="my-trips-page__history-top-row">
+            <text class="my-trips-page__history-time">{{item.timeLabel}}</text>
+            <view class="{{item.tagClassName}}">{{item.tagLabel}}</view>
+          </view>
+          <text class="my-trips-page__history-meta">{{item.metaLabel}}</text>
+        </view>
+        <view class="my-trips-page__history-side">
+          <text class="my-trips-page__history-amount">{{item.amountLabel}}</text>
+          <text class="my-trips-page__history-saving">{{item.savingsLabel}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="my-trips-page__custom-nav">
+    <view wx:for="{{bottomNavItems}}" wx:key="key" class="my-trips-page__nav-item" data-key="{{item.key}}" bindtap="handleBottomNavTap">
+      <text class="my-trips-page__nav-icon">{{item.icon}}</text>
+      <text class="{{item.labelClassName}}">{{item.label}}</text>
+    </view>
+  </view>
+</view>

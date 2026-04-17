@@ -1,0 +1,349 @@
+.join-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #F5F7FA;
+}
+
+.join-page__header {
+  height: 48px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFFFFF;
+}
+
+.join-page__header-icon {
+  color: #262633;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.join-page__header-title {
+  color: #1A1A2E;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.join-page__header-spacer {
+  width: 22px;
+  height: 22px;
+}
+
+.join-page__summary-card {
+  padding: 12px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #FFFFFF;
+}
+
+.join-page__driver-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.join-page__driver-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid #9EB3D9;
+  flex-shrink: 0;
+}
+
+.join-page__driver-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.join-page__driver-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.join-page__driver-name {
+  color: #1A1A2E;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.join-page__driver-badge {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #E0EDF7;
+  color: #1D4F91;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.join-page__driver-subtitle {
+  color: #8C94A1;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.join-page__trip-strip {
+  min-height: 46px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 12px;
+  background: #F5F7FC;
+}
+
+.join-page__trip-time {
+  color: #1A1A2E;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.join-page__trip-divider {
+  width: 1px;
+  height: 20px;
+  background: #D9DEE5;
+}
+
+.join-page__trip-route {
+  color: #6B7380;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.join-page__trip-day {
+  margin-left: auto;
+  color: #8C94A1;
+  font-size: 13px;
+}
+
+.join-page__divider {
+  width: 100%;
+  height: 4px;
+  background: #F5F7FA;
+}
+
+.join-page__section {
+  padding: 10px 20px;
+  background: #FFFFFF;
+}
+
+.join-page__section--payment {
+  padding-bottom: 8px;
+}
+
+.join-page__section-title {
+  color: #1A1A2E;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.join-page__rider-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.join-page__rider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 0;
+}
+
+.join-page__rider-avatar,
+.join-page__empty-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.join-page__empty-avatar {
+  border: 2px dashed #D8DEE8;
+  background: #FFFFFF;
+}
+
+.join-page__rider-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.join-page__rider-name {
+  color: #1A1A2E;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.join-page__rider-detail {
+  color: #8C94A1;
+  font-size: 12px;
+}
+
+.join-page__rider-badge {
+  margin-left: auto;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #E0EDF7;
+  color: #1D4F91;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.join-page__empty-text {
+  color: #BFC4CC;
+  font-size: 14px;
+}
+
+.join-page__fee-card {
+  margin-top: 8px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(245, 158, 10, 0.2);
+  background: #FFFAF0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.join-page__fee-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.join-page__fee-label {
+  color: #6B6659;
+  font-size: 14px;
+}
+
+.join-page__fee-highlight {
+  color: #D98005;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.join-page__fee-muted {
+  color: #6B6659;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.join-page__fee-divider {
+  width: 100%;
+  height: 1px;
+  background: #EBE0CC;
+}
+
+.join-page__fee-row--total {
+  align-items: flex-end;
+}
+
+.join-page__fee-total-label {
+  color: #1A1A2E;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.join-page__fee-total-value {
+  color: #1D4F91;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.join-page__payment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.join-page__payment-item {
+  min-height: 64px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 12px;
+  background: #F7F7FA;
+  border: 1.5px solid transparent;
+}
+
+.join-page__payment-item--active {
+  background: #E0EDF7;
+  border-color: #1D4F91;
+}
+
+.join-page__payment-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.join-page__payment-icon--zelle {
+  background: #6633B2;
+}
+
+.join-page__payment-icon--venmo {
+  background: #3899D9;
+}
+
+.join-page__payment-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.join-page__payment-name {
+  color: #1A1A2E;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.join-page__payment-subtitle {
+  color: #8C94A1;
+  font-size: 12px;
+}
+
+.join-page__payment-check {
+  margin-left: auto;
+  color: #1D4F91;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.join-page__cta-wrap {
+  padding: 10px 20px calc(env(safe-area-inset-bottom) + 10px);
+  background: #FFFFFF;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.join-page__cta {
+  width: 100%;
+  height: 52px;
+  border-radius: 16px;
+  background: #1D4F91;
+  color: #FFFFFF;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 52px;
+  box-shadow: 0 4px 12px rgba(29, 79, 145, 0.3);
+}

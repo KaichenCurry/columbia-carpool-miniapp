@@ -1,0 +1,37 @@
+<view wx:if="{{displayTrip}}" class="trip-card trip-card--{{variant}}" bindtap="handleTap">
+  <view class="trip-card__header">
+    <view class="trip-card__avatar-placeholder" style="{{displayTrip.avatarPlaceholderStyle}}"></view>
+    <view class="trip-card__meta">
+      <view class="trip-card__meta-top">
+        <text class="trip-card__name">{{displayTrip.displayName}}</text>
+        <view wx:if="{{displayTrip.driver.cuVerified}}" class="trip-card__cu-badge">
+          <text class="trip-card__cu-icon">🎓</text>
+          <text class="trip-card__cu-text">CU</text>
+        </view>
+      </view>
+      <text class="trip-card__sub">{{displayTrip.metaLabel}}</text>
+    </view>
+    <view class="{{displayTrip.typeTagClass}}">{{displayTrip.typeTagLabel}}</view>
+  </view>
+
+  <view class="trip-card__middle">
+    <view class="trip-card__time-wrap">
+      <text class="trip-card__time">{{displayTrip.departureMain}}</text>
+      <text class="trip-card__time-suffix">{{displayTrip.departureSuffix}}</text>
+    </view>
+    <text class="trip-card__route">{{displayTrip.routeLabel}}</text>
+    <view wx:if="{{displayTrip.showSeatDots}}" class="trip-card__seat-wrap">
+      <seats occupied="{{displayTrip.occupiedSeats}}" total="{{displayTrip.totalSeats}}" />
+    </view>
+    <text wx:elif="{{displayTrip.uberHint}}" class="trip-card__uber-hint">{{displayTrip.uberHint}}</text>
+  </view>
+
+  <view class="trip-card__bottom">
+    <view class="trip-card__price-wrap">
+      <text wx:if="{{displayTrip.pricePrefix}}" class="trip-card__price-prefix">{{displayTrip.pricePrefix}}</text>
+      <text class="{{displayTrip.priceClassName}}">{{displayTrip.priceValue}}</text>
+      <text class="trip-card__price-suffix">{{displayTrip.priceSuffix}}</text>
+    </view>
+    <button wx:if="{{showJoinButton}}" class="{{displayTrip.ctaClassName}}" catchtap="handleJoin">{{displayTrip.actionLabel}}</button>
+  </view>
+</view>

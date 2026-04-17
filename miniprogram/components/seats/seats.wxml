@@ -1,0 +1,3 @@
+<view class="seats">
+  <view wx:for="{{dots}}" wx:key="key" class="{{item.className}}"></view>
+</view>

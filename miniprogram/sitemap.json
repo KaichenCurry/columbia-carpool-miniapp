@@ -1,0 +1,9 @@
+{
+  "desc": "Fort Lee ↔ Columbia carpool mini program sitemap",
+  "rules": [
+    {
+      "action": "allow",
+      "page": "*"
+    }
+  ]
+}

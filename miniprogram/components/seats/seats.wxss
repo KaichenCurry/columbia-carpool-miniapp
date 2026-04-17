@@ -1,0 +1,19 @@
+.seats {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.seats__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.seats__dot--filled {
+  background: #1D4F91;
+}
+
+.seats__dot--empty {
+  background: #DCE1E8;
+}
