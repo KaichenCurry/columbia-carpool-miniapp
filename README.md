@@ -35,7 +35,7 @@
 
 ### 1. 首页 - 拼车广场
 
-![首页 - 拼车广场](./docs/screenshots/v2_01-homepage-carpool-square.png)
+![首页](./docs/screenshots/Screenshot%202026-04-17%20at%2012.37.57%20AM.png)
 
 浏览可用行程，点击右侧 **+** 发起自己的拼车
 
@@ -43,7 +43,7 @@
 
 ### 2. 行程详情
 
-![行程详情](./docs/screenshots/v2_02-trip-detail.jpg)
+![行程详情](./docs/screenshots/Screenshot%202026-04-17%20at%2012.38.03%20AM.png)
 
 查看车主信息、路线、费用，点击底部按钮 **加入拼车**
 
@@ -51,7 +51,7 @@
 
 ### 3. 发起拼车
 
-![发起拼车](./docs/screenshots/v2_03-create-trip.jpg)
+![发起拼车](./docs/screenshots/Screenshot%202026-04-17%20at%2012.38.09%20AM.png)
 
 填写行程信息，点击 **发起拼车** 发布行程
 
@@ -59,7 +59,7 @@
 
 ### 4. 我的行程
 
-![我的行程](./docs/screenshots/v2_04-my-trips.jpg)
+![我的行程](./docs/screenshots/Screenshot%202026-04-17%20at%2012.38.13%20AM.png)
 
 切换「进行中」/「历史」查看不同状态的行程
 
@@ -67,7 +67,7 @@
 
 ### 5. 确认加入
 
-![确认加入](./docs/screenshots/v2_05-confirm-join.jpg)
+![确认加入](./docs/screenshots/Screenshot%202026-04-17%20at%2012.38.18%20AM.png)
 
 确认行程和费用，点击 **确认支付**
 
