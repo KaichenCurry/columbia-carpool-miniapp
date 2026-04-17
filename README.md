@@ -1,199 +1,294 @@
-# Columbia Carpool Miniapp
+# 🚗 Columbia Carpool Miniapp
 
 <div align="center">
 
-A workflow-first WeChat Mini Program MVP for **Fort Lee ↔ Columbia University** commuting.
+[![Stars](https://img.shields.io/github/stars/KaichenCurry/columbia-carpool-miniapp?style=flat-square)](https://github.com/KaichenCurry/columbia-carpool-miniapp/stargazers)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-WeChat%20Mini%20Program-07C160?style=flat-square)](https://developers.weixin.qq.com/miniprogram/dev/index.html)
+[![Status](https://img.shields.io/badge/Status-MVP-orange?style=flat-square)](#current-status)
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
-[![WeChat Mini Program](https://img.shields.io/badge/platform-WeChat%20Mini%20Program-07C160)](./project.config.json)
-[![AI Demo](https://img.shields.io/badge/AI%20demo-heuristic__v1-4C6FFF)](./cloudfunctions/getCreateTripHint/index.js)
-[![Status](https://img.shields.io/badge/status-MVP-orange)](#current-status)
+**面向哥大留学生的拼车小程序 — Fort Lee ↔ Columbia University**
+
+[English](./README_en.md) · [产品文档](./docs) · [设计稿](./docs_FIGMA.md)
 
 </div>
 
 ---
 
-## Overview
+## 🎯 是什么
 
-This project is a campus carpool product prototype for Columbia students commuting between **Fort Lee, NJ** and **Columbia University**.
+面向 **哥伦比亚大学留学生** 的微信拼车小程序，解决 **Fort Lee ↔ Columbia** 通勤痛点。
 
-It is built around three concrete problems:
-- commute cost is high because the route crosses the **George Washington Bridge**
-- ride coordination in group chats is inefficient
-- first-time ride sharing has a trust barrier
+| 痛点 | 解决方案 |
+|------|---------|
+| 过乔治华盛顿大桥费用高 | 多人分摊 GWB 过桥费 |
+| 微信群协调效率低 | 标准化拼车流程 |
+| 第一次拼车信任难建立 | 哥大认证体系 |
 
-The current MVP supports two ride modes:
-- **Ride share**: a driver posts a trip and takes passengers
-- **Uber group split**: riders form a group and split a ride
-
-> This is **not** a fully AI-native product yet. It is a real workflow MVP with one small shipped AI-style feature and a larger roadmap for future evolution.
-
----
-
-## Table of Contents
-
-- [Overview](#overview)
-- [Product Showcase](#product-showcase)
-- [Core Features](#core-features)
-- [Shipped AI Demo](#shipped-ai-demo)
-- [Architecture](#architecture)
-- [Current Status](#current-status)
-- [Quick Start](#quick-start)
-- [Design Resources](#design-resources)
-- [Roadmap](#roadmap)
-- [License](#license)
+**两种拼车模式**：
+- 🚗 **顺风车**：车主发布行程，乘客加入
+- 🚕 **Uber 拼单**：乘客拼单打车，分摊车费
 
 ---
 
-## Product Showcase
+## 📱 功能预览
 
-### Figma entry points
+### 1. 首页 - 拼车广场
 
-- [Homepage](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=6-2)
-- [Trip Detail](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=12-2)
-- [Create Trip](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=15-2)
-- [My Trips](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=19-2)
-- [Join Confirmation](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=21-2)
+![首页 - 拼车广场](./docs/screenshots/01-homepage-carpool-square.jpg)
 
----
-
-## Core Features
-
-### Product flow
-- browse available trips from the homepage trip square
-- view trip route, toll breakdown, seat status, and driver info
-- create a new ride-share or Uber split trip
-- confirm joining with payment method selection
-- review active and history trips from the personal trip center
-
-### Trust and rules
-- campus verification entry
-- clear pricing explanation for toll-sharing
-- payment method selection flow
-- trip status management and seat tracking
-
-### Engineering support
-- Mini Program frontend pages and components
-- cloud functions for trip creation, joining, leaving, cancellation, and profile queries
-- mock data and seed data for local testing
+浏览所有可加入的行程：
+- 地图显示 Fort Lee ↔ Columbia 路线
+- 实时显示今日拼车人数
+- 顺风车 / Uber 拼单切换
+- 行程卡片：车主信息、时间、价格、剩余座位
 
 ---
 
-## Shipped AI Demo
+### 2. 行程详情
 
-A small AI-style feature is already implemented inside the **create-trip flow**.
+![行程详情](./docs/screenshots/02-trip-detail.jpg)
 
-### What it does
-- generates a suggested departure time when the create-trip sheet opens
-- refreshes the suggestion when the user changes trip mode or swaps route
-- returns:
-  - suggested departure time
-  - confidence label
-  - short reason text
-  - strategy version `heuristic_v1`
-- supports **one-click apply** back into the trip form
-
-### Current implementation
-- frontend hook: `miniprogram/pages/index/index.js`
-- UI card: `miniprogram/components/create-trip-sheet/`
-- service layer: `miniprogram/services/trip.service.js`
-- backend function: `cloudfunctions/getCreateTripHint/index.js`
-
-### What it is not
-- not an LLM-powered assistant
-- not a full ride-matching engine
-- not a production recommendation system
-- not a demand forecasting model
-
-This is intentionally scoped as a **small, honest, explainable AI demo** rather than an overstated AI claim.
+查看完整行程信息：
+- 车主认证信息 + 评分
+- 路线时间轴（Fort Lee → GW Bridge → Columbia）
+- 费用明细：GWB $8/人（含过桥费）
+- 乘客列表：查看谁在这辆车上
+- 一键加入拼车
 
 ---
 
-## Architecture
+### 3. 发起拼车
 
-```text
-Mini Program UI
-  └─ miniprogram/pages/*
-       └─ create-trip-sheet component
-            └─ trip.service.js
-                 └─ cloud.js
-                      └─ cloudfunctions/*
-                           ├─ createTrip
-                           ├─ joinTrip
-                           ├─ getTrips
-                           ├─ getTripDetail
-                           ├─ getMyTrips
-                           ├─ getUserProfile
-                           ├─ verifyCU
-                           └─ getCreateTripHint
+![发起拼车](./docs/screenshots/03-create-trip.jpg)
+
+发布自己的行程：
+- 切换顺风车 / Uber 拼单模式
+- 选择出发地、目的地
+- 设置出发时间
+- 选择可乘人数
+- 自动计算过桥费分摊
+
+---
+
+### 4. 我的行程
+
+![我的行程](./docs/screenshots/04-my-trips.jpg)
+
+管理已加入的行程：
+- 进行中：待出发 / 正在进行的行程
+- 历史：已完成的行程记录
+- 查看行程详情、乘客状态
+
+---
+
+### 5. 确认加入
+
+![确认加入](./docs/screenshots/05-confirm-join.jpg)
+
+确认并支付：
+- 查看车主和乘客信息
+- 确认费用明细（GWB $8）
+- 选择支付方式（Zelle / Venmo）
+- 确认加入 · 支付 $8.00
+
+---
+
+## ✨ 核心功能
+
+### 产品流程
+
+```
+浏览行程 → 查看详情 → 加入拼车 → 确认支付 → 我的行程
 ```
 
-### Key directories
-- `miniprogram/` — frontend pages, components, services, constants
-- `cloudfunctions/` — cloud function endpoints and shared backend logic
-- `cloudfunctions/common/src/` — constants, validators, repos, mappers, response helpers
-- `cloudfunctions/seeds/` — local seed data for `users` and `trips`
-- `docs/screenshots/` — README visual assets
+### 信任体系
+
+| 功能 | 说明 |
+|------|------|
+| 哥大认证 | 车主必须通过哥伦比亚大学身份认证 |
+| 评分系统 | 5 星评分 + 行程次数展示 |
+| 实名信息 | 乘客可查看车主真实姓名和车辆信息 |
+
+### 费用透明
+
+| 项目 | 说明 |
+|------|------|
+| GWB 过桥费 | 固定 $8/人（高峰时段 $23.30 均摊） |
+| 油费补贴 | 已包含在固定费用中 |
+| 无隐藏费用 | 明确标注"不再额外收费" |
 
 ---
 
-## Current Status
+## 🛠️ 技术架构
 
-### Implemented
-- 5-page Mini Program structure
-- trip creation and join workflow
-- trip detail and my trips views
-- cloud function skeleton for major trip operations
-- local mock fallback in frontend service layer
-- small heuristic AI trip-hint feature
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     微信小程序前端                            │
+│  miniprogram/pages/*    components/*    services/*          │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    微信云开发云函数                          │
+│  cloudfunctions/*                                        │
+│  ├── createTrip        创建行程                            │
+│  ├── joinTrip          加入行程                            │
+│  ├── getTrips          获取行程列表                        │
+│  ├── getTripDetail     行程详情                            │
+│  ├── getMyTrips        我的行程                            │
+│  ├── verifyCU          哥大认证                            │
+│  └── getCreateTripHint AI 出发时间建议                     │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    微信云开发数据库                         │
+│  users          trips          passengers                  │
+└─────────────────────────────────────────────────────────────┘
+```
 
-### Limitations
-- some create-flow selectors still use placeholder interactions
-- payment settlement is not integrated
-- live trip fulfillment tracking is not implemented
-- AI logic is heuristic, not model-driven
-- some frontend flows rely on mock fallback for local testing
+### 项目结构
+
+```
+columbia-carpool-miniapp/
+├── miniprogram/                 # 小程序前端
+│   ├── pages/
+│   │   ├── index/              # 首页（拼车广场）
+│   │   ├── trip-detail/        # 行程详情
+│   │   ├── create-trip/        # 发起拼车
+│   │   ├── my-trips/           # 我的行程
+│   │   └── confirm-join/       # 确认加入
+│   ├── components/             # 复用组件
+│   ├── services/               # API 服务层
+│   └── app.js                  # 应用入口
+│
+├── cloudfunctions/              # 云函数
+│   ├── createTrip/
+│   ├── joinTrip/
+│   ├── getTrips/
+│   ├── getTripDetail/
+│   ├── getMyTrips/
+│   ├── verifyCU/
+│   └── getCreateTripHint/      # AI 出发时间建议
+│
+└── docs/
+    ├── screenshots/            # 功能截图
+    ├── Figma 设计稿链接
+    └── 产品需求文档
+```
 
 ---
 
-## Quick Start
+## 🤖 AI 功能（已上线）
 
-### Requirements
-- WeChat DevTools
-- a WeChat cloud environment
+### 智能出发时间建议
 
-### Run locally
-1. Open the repo in **WeChat DevTools**.
-2. Import the project using `project.config.json`.
-3. Set your own cloud environment ID in `miniprogram/app.js`.
-4. Create cloud database collections and import seed data from `cloudfunctions/seeds/` if needed.
+在发起拼车时，系统会根据历史数据给出建议出发时间：
 
-### Seed data
-- `cloudfunctions/seeds/users.seed.json`
-- `cloudfunctions/seeds/trips.seed.json`
-- `cloudfunctions/seeds/README.txt`
+```
+{
+  "departureTime": "8:30 AM",
+  "confidence": "高",
+  "reason": "根据历史数据分析，8:30 AM 出发可避开早高峰，准时到达",
+  "strategy": "heuristic_v1"
+}
+```
 
----
-
-## Design Resources
-
-- Figma notes: [`docs_FIGMA.md`](./docs_FIGMA.md)
-- product spec: [`CLAUDE_CODE_PROMPT.md`](./CLAUDE_CODE_PROMPT.md)
-- UI tokens and component rules: [`UI_COMPONENTS.md`](./UI_COMPONENTS.md)
+**功能特点**：
+- 一键应用建议时间到表单
+- 支持切换路线/模式时自动刷新
+- 可解释的建议理由
 
 ---
 
-## Roadmap
+## 📊 当前状态
 
-Potential next steps:
-- natural language trip creation
-- smarter recommendation based on route and time patterns
-- peak commute demand prediction
-- abnormal cancellation detection
-- GWB traffic-aware ride reminders
+### 已实现
+
+- ✅ 5 页完整小程序界面
+- ✅ 拼车创建和加入流程
+- ✅ 行程详情和我的行程
+- ✅ 云函数完整骨架
+- ✅ 本地 Mock 数据支持调试
+- ✅ 哥大认证体系
+- ✅ 智能出发时间建议
+
+### 局限性
+
+- ⚠️ 部分选择器使用占位交互
+- ⚠️ 支付结算未集成
+- ⚠️ 实时行程追踪未实现
+- ⚠️ AI 为启发式，非模型驱动
 
 ---
 
-## License
+## 🚀 快速开始
 
-MIT — see [`LICENSE`](./LICENSE).
+### 环境要求
+
+- 微信开发者工具
+- 微信云开发环境
+
+### 运行步骤
+
+```bash
+# 1. 克隆项目
+git clone https://github.com/KaichenCurry/columbia-carpool-miniapp.git
+cd columbia-carpool-miniapp
+
+# 2. 用微信开发者工具打开
+# 导入项目，选择 project.config.json
+
+# 3. 配置云开发环境
+# 在 miniprogram/app.js 中设置云环境 ID
+
+# 4. 创建云数据库集合
+# 导入 cloudfunctions/seeds/ 中的种子数据
+```
+
+### 种子数据
+
+```bash
+cloudfunctions/seeds/
+├── users.seed.json   # 用户数据
+└── trips.seed.json   # 行程数据
+```
+
+---
+
+## 🗺️ 未来路线图
+
+| 时间 | 功能 |
+|------|------|
+| v1.1 | 自然语言创建行程 |
+| v1.2 | 智能路线推荐（基于历史模式） |
+| v1.3 | 高峰期需求预测 |
+| v2.0 | GWB 实时路况提醒 |
+| v2.0 | 异常取消检测 |
+
+---
+
+## 🔗 链接
+
+| 资源 | 链接 |
+|------|------|
+| GitHub | https://github.com/KaichenCurry/columbia-carpool-miniapp |
+| Figma 设计稿 | [首页](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/拼车-UI?node-id=6-2) |
+| 产品文档 | [docs/](docs) |
+
+---
+
+## 📜 License
+
+[MIT License](./LICENSE)
+
+---
+
+<div align="center">
+
+**给个 ⭐ 支持一下！**
+
+*Made by [Curry Chen](https://github.com/KaichenCurry)*
+
+</div>
