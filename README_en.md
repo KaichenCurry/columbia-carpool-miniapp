@@ -245,8 +245,8 @@ gantt
     title Product Roadmap
     dateFormat  YYYY-MM
     section v1.0
-    Basic carpool flow       :2026-01, 2026-04
-    CU verification          :2026-01, 2026-04
+    Basic carpool flow       :2026-04, 2026-04
+    CU verification          :2026-04, 2026-04
 
     section v1.1
     AI departure suggestion   :2026-05, 2026-07
