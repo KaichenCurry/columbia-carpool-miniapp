@@ -52,6 +52,21 @@
 
     <view class="create-sheet__field-group create-sheet__field-group--time">
       <text class="create-sheet__label">出发时间</text>
+      <view wx:if="{{aiLoading || aiHint}}" class="create-sheet__ai-card">
+        <view class="create-sheet__ai-card-head">
+          <text class="create-sheet__ai-badge">AI 建议</text>
+          <text wx:if="{{aiHint && aiHint.version}}" class="create-sheet__ai-version">{{aiHint.version}}</text>
+        </view>
+        <text wx:if="{{aiLoading}}" class="create-sheet__ai-loading">正在生成推荐时间...</text>
+        <block wx:elif="{{aiHint}}">
+          <text class="create-sheet__ai-time">建议 {{aiHint.suggestedLabel}}</text>
+          <text class="create-sheet__ai-reason">{{aiHint.reason}}</text>
+          <view class="create-sheet__ai-meta">
+            <text class="create-sheet__ai-confidence">匹配度 {{aiHint.confidenceLabel}}</text>
+            <text class="create-sheet__ai-action" bindtap="handleApplyAi">一键采用</text>
+          </view>
+        </block>
+      </view>
       <view class="create-sheet__time-selector" data-field="time" bindtap="handleFieldTap">
         <text class="create-sheet__time-icon">🕐</text>
         <text class="create-sheet__time-label">{{displayForm.departureLabel}}</text>

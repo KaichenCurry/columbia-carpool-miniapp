@@ -2,89 +2,99 @@
 
 A workflow-first WeChat Mini Program MVP for Fort Lee ↔ Columbia University commuting.
 
-> This repository is **not an AI-native product yet**. It is a real workflow product MVP with a clear roadmap toward AI-native evolution, including smart matching, demand prediction, and risk detection.
+> A real product MVP built around a real student commute scenario. The repo now includes a **small shipped AI demo** in the create-trip flow: an AI-style departure-time suggestion based on route direction and current trip samples.
 
-## What this project is
+## Project Snapshot
 
-This project is a campus carpool product prototype for Columbia students commuting between Fort Lee, NJ and Columbia University.
+- **Product type**: WeChat Mini Program MVP
+- **Core scenario**: Fort Lee ↔ Columbia student commute
+- **Main modes**: Ride share / Uber group split
+- **Current AI scope**: lightweight departure-time recommendation (`heuristic_v1`)
+- **Positioning**: workflow-first product with an AI-native roadmap
+
+## What problem it solves
+
+This project is designed for Columbia students commuting between **Fort Lee, NJ** and **Columbia University**.
 
 It focuses on three concrete problems:
-- commuting cost is high
+- commuting cost is high because the route crosses the George Washington Bridge
 - ad-hoc coordination in group chats is inefficient
 - first-time ride sharing has a trust barrier
 
-The current MVP includes two ride modes:
-- **Ride share**: driver posts a trip and takes passengers
-- **Uber group split**: riders form a small group and split a ride
+## Product Showcase
 
-## Why this project is worth viewing
+### Homepage
+![Homepage](docs/screenshots/home.jpg)
 
-- it comes from a **real user scenario**, not a fictional case study
-- it is built as a **complete workflow**, not just a UI prototype
-- it includes **trust rules, pricing explanation, and trip state design**
-- it already has a product structure that can evolve into AI features later
-
-## Project Screens
-
-### Key screen links
-- [Homepage / Trip square](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=6-2)
+### More screens
 - [Trip detail](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=12-2)
 - [Create trip](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=15-2)
 - [My trips](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=19-2)
 - [Join confirmation](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=21-2)
 
-### Screen overview
-| Screen | What it shows |
-|---|---|
-| Homepage | map view, today banner, ride cards, mode tabs, publish button |
-| Trip detail | route timeline, toll breakdown, driver info, seat status |
-| Create trip | mode selection, origin/destination, time, seat count |
-| My trips | active trip card, history list, savings feedback |
-| Join confirmation | rider list, payment method, fee explanation |
+## What is implemented now
 
-> Static PNG screenshots can be exported later if needed. For now, the Figma links above are the most accurate review entry points.
-
-## Repository Contents
-
-- `miniprogram/` - WeChat Mini Program frontend
-- `cloudfunctions/` - cloud functions for trip creation, joining, cancellation, profile, and verification
-- `CLAUDE_CODE_PROMPT.md` - product and UI specification
-- `UI_COMPONENTS.md` - UI component rules
-- `docs_FIGMA.md` - design file notes and screen mapping
-- `AI产品经理项目提炼_简历与面试稿.md` - interview and resume notes
-
-## Core Features
-
+### Product workflow
 - homepage trip square
 - trip detail page
 - create trip flow
 - join confirmation flow
 - my trips page
-- campus verification and payment method setup
-
-## Current Product Scope
-
-### Already implemented in the repo
-- Mini Program page structure
-- trip creation and join flows
-- trip detail and my trips views
-- cloud function skeleton and data model
 - campus verification entry
-- mock data and seed data for local testing
 
-### Not yet implemented
-- real AI features
-- real payment settlement
-- live trip fulfillment tracking
-- operations strategy for cold start
+### Engineering structure
+- Mini Program frontend under `miniprogram/`
+- cloud functions under `cloudfunctions/`
+- mock data and seed data for local validation
+- product spec and UI tokens documented in the repo
 
-## AI Roadmap
+## Shipped AI demo
 
-The AI part is currently a **roadmap**, not a shipped feature. The most realistic next steps are:
+This repo now includes a **small real AI demo** inside the existing create-trip flow.
+
+### What it does
+- generates a suggested departure time when the user opens the create-trip sheet
+- updates the suggestion when the user changes mode or swaps route
+- shows:
+  - suggested departure time
+  - confidence label
+  - short reason text
+  - strategy version `heuristic_v1`
+- supports **one-click apply** back into the form
+
+### What it is not
+- not a large-model assistant
+- not a full matching engine
+- not a demand forecasting system
+- not a production-grade recommendation model
+
+This keeps the claim honest: the repo has **one shipped AI-style capability**, while larger AI features remain part of the roadmap.
+
+## AI roadmap
+
+The most realistic next steps are:
 - natural language trip creation
 - smart trip recommendation based on route and time
-- demand prediction for peak commute windows
+- peak commute demand prediction
 - abnormal cancellation detection
+- GWB traffic-aware ride reminders
+
+## Why this project is worth reviewing
+
+- based on a **real user scenario**, not a fictional case study
+- built as a **complete workflow**, not just a UI draft
+- includes trust rules, pricing explanation, and trip-state design
+- now contains a small but real AI demo in the codebase
+- suitable for product / AI PM portfolio discussion because the scope is honest and explainable
+
+## Repository Contents
+
+- `miniprogram/` - WeChat Mini Program frontend
+- `cloudfunctions/` - cloud functions for trip creation, joining, cancellation, profile, verification, and AI hint generation
+- `CLAUDE_CODE_PROMPT.md` - product and UI specification
+- `UI_COMPONENTS.md` - UI component rules
+- `docs_FIGMA.md` - design file notes and screen mapping
+- `AI产品经理项目提炼_简历与面试稿.md` - resume and interview notes
 
 ## Figma Design
 

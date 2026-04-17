@@ -1,7 +1,24 @@
 const { TRIP_MODES } = require('../../constants/business');
 const { GROUP_OPTIONS } = require('../../constants/locations');
-const { getTrips, createTrip } = require('../../services/trip.service');
+const { getTrips, createTrip, getCreateTripHint } = require('../../services/trip.service');
 const { formatDateTimeLabel } = require('../../utils/time');
+
+const applyHintToForm = (form, hint) => {
+  if (!hint || !hint.suggestedDepartureTime) {
+    return form;
+  }
+
+  const nextDate = new Date(hint.suggestedDepartureTime);
+  if (Number.isNaN(nextDate.getTime())) {
+    return form;
+  }
+
+  return {
+    ...form,
+    departureTime: nextDate.toISOString(),
+    departureLabel: formatDateTimeLabel(nextDate)
+  };
+};
 
 const buildModeTabs = (activeMode) => ([
   { key: TRIP_MODES.RIDE, label: '🚗 顺风车' },
@@ -22,17 +39,21 @@ const buildBottomNavItems = () => ([
   { key: 'my', label: '我的', icon: '👤', iconClassName: 'index-page__nav-icon', labelClassName: 'index-page__nav-label' }
 ]);
 
-const buildInitialForm = () => ({
-  mode: TRIP_MODES.RIDE,
-  fromGroupKey: GROUP_OPTIONS[0].key,
-  fromLabel: GROUP_OPTIONS[0].places[0].name,
-  fromGroupLabel: GROUP_OPTIONS[0].label,
-  toGroupKey: GROUP_OPTIONS[1].key,
-  toLabel: GROUP_OPTIONS[1].places[0].name,
-  toGroupLabel: GROUP_OPTIONS[1].label,
-  departureLabel: formatDateTimeLabel(new Date()),
-  seatCount: 3
-});
+const buildInitialForm = () => {
+  const now = new Date();
+  return {
+    mode: TRIP_MODES.RIDE,
+    fromGroupKey: GROUP_OPTIONS[0].key,
+    fromLabel: GROUP_OPTIONS[0].places[0].name,
+    fromGroupLabel: GROUP_OPTIONS[0].label,
+    toGroupKey: GROUP_OPTIONS[1].key,
+    toLabel: GROUP_OPTIONS[1].places[0].name,
+    toGroupLabel: GROUP_OPTIONS[1].label,
+    departureTime: now.toISOString(),
+    departureLabel: formatDateTimeLabel(now),
+    seatCount: 3
+  };
+};
 
 Page({
   data: {
@@ -44,7 +65,9 @@ Page({
     trips: [],
     loading: false,
     createSheetVisible: false,
-    createForm: buildInitialForm()
+    createForm: buildInitialForm(),
+    createAiHint: null,
+    createAiLoading: false
   },
 
   onLoad() {
@@ -66,6 +89,31 @@ Page({
       })
       .finally(() => {
         this.setData({ loading: false });
+      });
+  },
+
+  refreshCreateAiHint(formPatch = {}) {
+    const nextForm = {
+      ...this.data.createForm,
+      ...formPatch
+    };
+
+    this.setData({ createAiLoading: true });
+
+    return getCreateTripHint(nextForm)
+      .then((hint) => {
+        this.setData({
+          createAiHint: hint,
+          createAiLoading: false
+        });
+        return hint;
+      })
+      .catch(() => {
+        this.setData({
+          createAiHint: null,
+          createAiLoading: false
+        });
+        return null;
       });
   },
 
@@ -110,16 +158,22 @@ Page({
 
   openCreateSheet() {
     this.setData({ createSheetVisible: true });
+    this.refreshCreateAiHint();
   },
 
   closeCreateSheet() {
-    this.setData({ createSheetVisible: false });
+    this.setData({
+      createSheetVisible: false,
+      createAiLoading: false
+    });
   },
 
   handleCreateModeChange(event) {
+    const mode = event.detail.value;
     this.setData({
-      'createForm.mode': event.detail.value
+      'createForm.mode': mode
     });
+    this.refreshCreateAiHint({ mode });
   },
 
   handleCreateSeatChange(event) {
@@ -138,13 +192,35 @@ Page({
 
   handleCreateSwap() {
     const { fromLabel, fromGroupLabel, fromGroupKey, toLabel, toGroupLabel, toGroupKey } = this.data.createForm;
+    const formPatch = {
+      fromLabel: toLabel,
+      fromGroupLabel: toGroupLabel,
+      fromGroupKey: toGroupKey,
+      toLabel: fromLabel,
+      toGroupLabel: fromGroupLabel,
+      toGroupKey: fromGroupKey
+    };
+
     this.setData({
-      'createForm.fromLabel': toLabel,
-      'createForm.fromGroupLabel': toGroupLabel,
-      'createForm.fromGroupKey': toGroupKey,
-      'createForm.toLabel': fromLabel,
-      'createForm.toGroupLabel': fromGroupLabel,
-      'createForm.toGroupKey': fromGroupKey
+      'createForm.fromLabel': formPatch.fromLabel,
+      'createForm.fromGroupLabel': formPatch.fromGroupLabel,
+      'createForm.fromGroupKey': formPatch.fromGroupKey,
+      'createForm.toLabel': formPatch.toLabel,
+      'createForm.toGroupLabel': formPatch.toGroupLabel,
+      'createForm.toGroupKey': formPatch.toGroupKey
+    });
+
+    this.refreshCreateAiHint(formPatch);
+  },
+
+  handleApplyAiHint() {
+    if (!this.data.createAiHint) {
+      return;
+    }
+
+    const nextForm = applyHintToForm(this.data.createForm, this.data.createAiHint);
+    this.setData({
+      createForm: nextForm
     });
   },
 

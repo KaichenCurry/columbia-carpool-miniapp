@@ -213,6 +213,69 @@
   white-space: pre;
 }
 
+.create-sheet__ai-card {
+  margin-bottom: 8px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #EEF4FB;
+  border: 1px solid rgba(29, 79, 145, 0.12);
+}
+
+.create-sheet__ai-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.create-sheet__ai-badge {
+  color: #1D4F91;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.create-sheet__ai-version {
+  color: #8C94A1;
+  font-size: 10px;
+}
+
+.create-sheet__ai-loading,
+.create-sheet__ai-reason {
+  display: block;
+  margin-top: 6px;
+  color: #5B6472;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.create-sheet__ai-time {
+  display: block;
+  margin-top: 8px;
+  color: #1A1A2E;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.create-sheet__ai-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.create-sheet__ai-confidence {
+  color: #1D4F91;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.create-sheet__ai-action {
+  color: #1D4F91;
+  font-size: 12px;
+  font-weight: 700;
+}
+
 .create-sheet__seat-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

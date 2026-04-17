@@ -1,7 +1,7 @@
 const { callFunction } = require('./cloud');
 const { mockTrips, getTripsByType, getTripById } = require('../mock/trips');
 const { currentUser } = require('../mock/users');
-const { TRIP_STATUS } = require('../constants/business');
+const { TRIP_STATUS, TRIP_MODES } = require('../constants/business');
 
 const DEBUG_PREFIX = '[trip.service]';
 
@@ -51,6 +51,48 @@ const getMyTrips = () => {
     .catch((error) => {
       logDebug('getMyTrips: cloud call failed, using mock fallback', error && error.message ? error.message : error);
       return fallback;
+    });
+};
+
+const buildLocalHint = ({ mode, fromGroupKey, toGroupKey }) => {
+  const isMorningRide = fromGroupKey === 'fortLee' && toGroupKey === 'columbia';
+  const isEveningRide = fromGroupKey === 'columbia' && toGroupKey === 'fortLee';
+  const suggestedDate = new Date();
+
+  if (isMorningRide) {
+    suggestedDate.setHours(mode === TRIP_MODES.UBER ? 8 : 8, mode === TRIP_MODES.UBER ? 45 : 15, 0, 0);
+  } else if (isEveningRide) {
+    suggestedDate.setHours(mode === TRIP_MODES.UBER ? 18 : 18, mode === TRIP_MODES.UBER ? 10 : 30, 0, 0);
+  } else {
+    suggestedDate.setHours(mode === TRIP_MODES.UBER ? 12 : 12, mode === TRIP_MODES.UBER ? 20 : 0, 0, 0);
+  }
+
+  const suggestedLabel = `${suggestedDate.getMonth() + 1}月${suggestedDate.getDate()}日 ${suggestedDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}`;
+  const reason = isMorningRide
+    ? 'Fort Lee → Columbia 早高峰通勤更集中，建议提前出发更容易成团。'
+    : isEveningRide
+      ? 'Columbia → Fort Lee 晚高峰返程需求更稳定，建议在下课后时段发起。'
+      : '当前路线样本较少，先给出一个居中的推荐时间。';
+
+  return {
+    suggestedDepartureTime: suggestedDate.toISOString(),
+    suggestedLabel,
+    confidenceLabel: isMorningRide || isEveningRide ? '高' : '中',
+    reason,
+    version: 'heuristic_v1'
+  };
+};
+
+const getCreateTripHint = (payload) => {
+  const fallback = {
+    hint: buildLocalHint(payload || {})
+  };
+
+  return callFunction({ name: 'getCreateTripHint', data: payload || {} })
+    .then((res) => unwrapResult(res.result, fallback, 'getCreateTripHint').hint)
+    .catch((error) => {
+      logDebug('getCreateTripHint: cloud call failed, using local fallback', error && error.message ? error.message : error);
+      return fallback.hint;
     });
 };
 
@@ -120,6 +162,7 @@ module.exports = {
   getTrips,
   getTripDetail,
   getMyTrips,
+  getCreateTripHint,
   createTrip,
   joinTrip,
   getUserProfile,

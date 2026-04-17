@@ -47,6 +47,14 @@ Component({
       observer(form) {
         this.syncFormDisplay(form);
       }
+    },
+    aiHint: {
+      type: Object,
+      value: null
+    },
+    aiLoading: {
+      type: Boolean,
+      value: false
     }
   },
 
@@ -109,6 +117,10 @@ Component({
       this.triggerEvent('tapfield', {
         field: event.currentTarget.dataset.field
       });
+    },
+
+    handleApplyAi() {
+      this.triggerEvent('applyai');
     }
   }
 });

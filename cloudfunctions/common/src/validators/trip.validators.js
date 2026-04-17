@@ -50,8 +50,23 @@ const validateJoinTrip = ({ paymentMethod }) => {
   return errors;
 };
 
+const validateCreateTripHint = (payload = {}) => {
+  const errors = [];
+  if (payload.mode && ![TRIP_MODES.RIDE, TRIP_MODES.UBER].includes(payload.mode)) {
+    errors.push('invalid_mode');
+  }
+  if (payload.fromGroupKey && !isValidGroup(payload.fromGroupKey)) {
+    errors.push('invalid_from_group');
+  }
+  if (payload.toGroupKey && !isValidGroup(payload.toGroupKey)) {
+    errors.push('invalid_to_group');
+  }
+  return errors;
+};
+
 module.exports = {
   normalizePlaceId,
   validateCreateTrip,
-  validateJoinTrip
+  validateJoinTrip,
+  validateCreateTripHint
 };

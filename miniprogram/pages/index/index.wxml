@@ -57,11 +57,14 @@
   <create-trip-sheet
     visible="{{createSheetVisible}}"
     form="{{createForm}}"
+    aiHint="{{createAiHint}}"
+    aiLoading="{{createAiLoading}}"
     bind:close="closeCreateSheet"
     bind:submit="handleCreateSubmit"
     bind:swap="handleCreateSwap"
     bind:changemode="handleCreateModeChange"
     bind:changeseat="handleCreateSeatChange"
     bind:tapfield="handleCreateFieldTap"
+    bind:applyai="handleApplyAiHint"
   />
 </view>
