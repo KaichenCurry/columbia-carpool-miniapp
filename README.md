@@ -35,62 +35,64 @@
 
 ### 1. 首页 - 拼车广场
 
-![首页 - 拼车广场](./docs/screenshots/01-homepage-carpool-square.jpg)
+![首页 - 拼车广场](./docs/screenshots/annotated_01-homepage-carpool-square.png)
 
-浏览所有可加入的行程：
-- 地图显示 Fort Lee ↔ Columbia 路线
-- 实时显示今日拼车人数
-- 顺风车 / Uber 拼单切换
-- 行程卡片：车主信息、时间、价格、剩余座位
+**操作流程**：
+1. 🔄 切换「顺风车」/「Uber 拼单」模式
+2. 📋 浏览可用行程卡片（车主、时间、价格、座位）
+3. ➕ 点击右侧「+」发布自己的行程
+4. 🧭 使用底部导航切换页面
 
 ---
 
 ### 2. 行程详情
 
-![行程详情](./docs/screenshots/02-trip-detail.jpg)
+![行程详情](./docs/screenshots/annotated_02-trip-detail.png)
 
-查看完整行程信息：
-- 车主认证信息 + 评分
-- 路线时间轴（Fort Lee → GW Bridge → Columbia）
-- 费用明细：GWB $8/人（含过桥费）
-- 乘客列表：查看谁在这辆车上
-- 一键加入拼车
+**操作流程**：
+1. 👤 查看车主信息（认证、评分、车辆）
+2. 🛣️ 查看路线时间轴（Fort Lee → GW Bridge → Columbia）
+3. 💰 查看费用明细（GWB $8/人）
+4. 👥 查看乘客列表（谁在这辆车上）
+5. ✅ 点击「加入拼车」确认加入
 
 ---
 
 ### 3. 发起拼车
 
-![发起拼车](./docs/screenshots/03-create-trip.jpg)
+![发起拼车](./docs/screenshots/annotated_03-create-trip.png)
 
-发布自己的行程：
-- 切换顺风车 / Uber 拼单模式
-- 选择出发地、目的地
-- 设置出发时间
-- 选择可乘人数
-- 自动计算过桥费分摊
+**操作流程**：
+1. 🔄 选择「顺风车」或「Uber 拼单」模式
+2. 📍 选择出发地和目的地（可一键互换）
+3. ⏰ 设置出发时间
+4. 👥 选择可乘人数
+5. 🚗 点击「发起拼车」发布行程
 
 ---
 
 ### 4. 我的行程
 
-![我的行程](./docs/screenshots/04-my-trips.jpg)
+![我的行程](./docs/screenshots/annotated_04-my-trips.png)
 
-管理已加入的行程：
-- 进行中：待出发 / 正在进行的行程
-- 历史：已完成的行程记录
-- 查看行程详情、乘客状态
+**操作流程**：
+1. 🔄 切换「进行中」/「历史」查看不同状态
+2. 📋 查看进行中的行程（待出发）
+3. 📜 向下滚动查看历史行程记录
+4. 🏠 使用底部导航返回其他页面
 
 ---
 
 ### 5. 确认加入
 
-![确认加入](./docs/screenshots/05-confirm-join.jpg)
+![确认加入](./docs/screenshots/annotated_05-confirm-join.png)
 
-确认并支付：
-- 查看车主和乘客信息
-- 确认费用明细（GWB $8）
-- 选择支付方式（Zelle / Venmo）
-- 确认加入 · 支付 $8.00
+**操作流程**：
+1. 👤 确认车主信息（认证、评分）
+2. 📝 查看行程概要（时间、路线）
+3. 👥 确认乘客列表（剩余座位）
+4. 💳 选择支付方式（Zelle / Venmo）
+5. 💰 点击「确认加入 · 支付 $8.00」
 
 ---
 
@@ -173,7 +175,7 @@ columbia-carpool-miniapp/
 │   └── getCreateTripHint/      # AI 出发时间建议
 │
 └── docs/
-    ├── screenshots/            # 功能截图
+    ├── screenshots/            # 功能截图（含标注）
     ├── Figma 设计稿链接
     └── 产品需求文档
 ```
@@ -186,7 +188,7 @@ columbia-carpool-miniapp/
 
 在发起拼车时，系统会根据历史数据给出建议出发时间：
 
-```
+```json
 {
   "departureTime": "8:30 AM",
   "confidence": "高",
@@ -259,7 +261,7 @@ cloudfunctions/seeds/
 
 ## 🗺️ 未来路线图
 
-| 时间 | 功能 |
+| 版本 | 功能 |
 |------|------|
 | v1.1 | 自然语言创建行程 |
 | v1.2 | 智能路线推荐（基于历史模式） |
