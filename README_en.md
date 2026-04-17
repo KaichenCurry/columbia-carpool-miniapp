@@ -5,7 +5,6 @@
 [![Stars](https://img.shields.io/github/stars/KaichenCurry/columbia-carpool-miniapp?style=flat-square)](https://github.com/KaichenCurry/columbia-carpool-miniapp/stargazers)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 [![Platform](https://img.shields.io/badge/WeChat%20Mini%20Program-07C160?style=flat-square)](https://developers.weixin.qq.com/miniprogram/dev/index.html)
-[![WeChat](https://img.shields.io/badge/WeChat-07C160?style=flat-square&logo=wechat&logoColor=white)](https://weixin.qq.com/)
 
 **WeChat Mini Program for Columbia Students — Fort Lee ↔ Columbia University**
 
@@ -22,7 +21,6 @@
 - [Features](#features)
 - [Core Features](#core-features)
 - [Technical Architecture](#technical-architecture)
-- [AI Feature](#ai-feature)
 - [Quick Start](#quick-start)
 - [Project Structure](#project-structure)
 - [Roadmap](#roadmap)
@@ -51,20 +49,28 @@ A WeChat Mini Program connecting Columbia University students commuting between 
 
 ## Problems & Solutions
 
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                    3 Commuting Pain Points                              │
-├────────────────────────────────────────────────────────────────────────┤
-│                                                                        │
-│   💰 High Toll                  📱 Inefficient Coordination   🔒 Trust │
-│   GWB $23.30/crossing         Chaos in WeChat groups      Unknown     │
-│   Too expensive alone            Information scattered         No verify   │
-│        │                              │                           │        │
-│        ▼                              ▼                           ▼        │
-│   💵 Split the Cost             📋 Standardized Flow          ✅ CU     │
-│   Only $8/person               One-click post/join         Verified    │
-│                                                                        │
-└────────────────────────────────────────────────────────────────────────┘
+### Three Pain Points
+
+```mermaid
+flowchart LR
+    subgraph Pain["Pain Points"]
+        P1["💰 High Toll<br/>GWB $23.30/crossing"]
+        P2["📱 Inefficient<br/>WeChat chaos"]
+        P3["🔒 Trust Issues<br/>Unknown driver"]
+    end
+
+    subgraph Solution["Solutions"]
+        S1["💵 Split Cost<br/>Only $8/person"]
+        S2["📋 Standardized Flow<br/>One-click post/join"]
+        S3["✅ CU Verification<br/>Verified identity"]
+    end
+
+    P1 --> S1
+    P2 --> S2
+    P3 --> S3
+
+    style Pain fill:#ffcccc,stroke:#ff6666
+    style Solution fill:#ccffcc,stroke:#66cc66
 ```
 
 ---
@@ -94,7 +100,7 @@ Select payment method (Zelle/Venmo), complete the join.
 
 ## Core Features
 
-### 🛡️ Trust System
+### Trust System
 
 | Feature | Description | Status |
 |---------|-------------|--------|
@@ -103,7 +109,7 @@ Select payment method (Zelle/Venmo), complete the join.
 | Real Info | Name, license plate, vehicle | ✅ |
 | Trip History | Driver's completed trips | ✅ |
 
-### 💰 Transparent Pricing
+### Transparent Pricing
 
 | Item | Amount | Note |
 |------|--------|------|
@@ -115,47 +121,41 @@ Select payment method (Zelle/Venmo), complete the join.
 
 ## Technical Architecture
 
+### System Architecture
+
+```mermaid
+flowchart TD
+    subgraph Frontend["WeChat Mini Program"]
+        F1["pages/index<br/>Carpool Square"]
+        F2["pages/trip-detail<br/>Trip Detail"]
+        F3["pages/create-trip<br/>Create Trip"]
+        F4["pages/my-trips<br/>My Trips"]
+        F5["components/*<br/>Components"]
+        F6["services/*<br/>API Services"]
+    end
+
+    subgraph Cloud["WeChat Cloud"]
+        C1["createTrip"]
+        C2["joinTrip"]
+        C3["leaveTrip"]
+        C4["getTrips"]
+        C5["verifyCU"]
+        C6["..."]
+    end
+
+    subgraph Database["Cloud Database"]
+        D1["users"]
+        D2["trips"]
+        D3["passengers"]
+    end
+
+    Frontend --> Cloud
+    Cloud --> Database
+
+    style Frontend fill:#e3f2fd,stroke:#2196f3
+    style Cloud fill:#fff8e1,stroke:#ffc107
+    style Database fill:#e8f5e9,stroke:#4caf50
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                       WeChat Mini Program Frontend                       │
-│   pages/index   pages/trip-detail   pages/create-trip   pages/my-trips │
-│                          components/*   services/*                    │
-└─────────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│                       WeChat Cloud Functions                           │
-│                                                                          │
-│   createTrip   joinTrip   leaveTrip   cancelTrip                      │
-│   getTrips    getTripDetail   getMyTrips   getUserProfile            │
-│   verifyCU    getCreateTripHint                                             │
-└─────────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│                       WeChat Cloud Database                            │
-│                    users        trips        passengers                │
-└─────────────────────────────────────────────────────────────────────────┘
-```
-
----
-
-## AI Feature
-
-### Smart Departure Time Suggestion
-
-AI recommends optimal departure time based on historical data.
-
-```json
-{
-  "departureTime": "8:30 AM",
-  "confidence": "High",
-  "reason": "Historical data shows 8:30 AM avoids GWB morning peak",
-  "strategy": "heuristic_v1"
-}
-```
-
-> ⚠️ Currently heuristic-based. ML model planned for future.
 
 ---
 
@@ -181,7 +181,7 @@ cd columbia-carpool-miniapp
 # 3. Configure cloud environment
 # Set cloud env ID in miniprogram/app.js
 
-# 4. Create collections in WeChat Cloud Console:
+# 4. Create collections
 # users, trips, passengers
 ```
 
@@ -193,27 +193,21 @@ cd columbia-carpool-miniapp
 columbia-carpool-miniapp/
 ├── miniprogram/                    # Mini Program
 │   ├── pages/
-│   │   ├── index/               # Homepage (Carpool Square)
-│   │   ├── trip-detail/         # Trip Detail
-│   │   ├── create-trip/          # Create Trip
-│   │   ├── my-trips/             # My Trips
-│   │   └── join-confirm/         # Confirm Join
-│   ├── components/                # Reusable components
-│   ├── services/                  # API service layer
-│   └── app.js                    # App entry
+│   │   ├── index/               # Homepage
+│   │   ├── trip-detail/          # Trip Detail
+│   │   ├── create-trip/         # Create Trip
+│   │   ├── my-trips/            # My Trips
+│   │   └── join-confirm/        # Confirm
+│   ├── components/               # Components
+│   ├── services/                 # API Services
+│   └── app.js
 │
 ├── cloudfunctions/                # Cloud Functions
 │   ├── createTrip/
 │   ├── joinTrip/
-│   ├── leaveTrip/
-│   ├── cancelTrip/
 │   ├── getTrips/
-│   ├── getTripDetail/
-│   ├── getMyTrips/
-│   ├── getUserProfile/
 │   ├── verifyCU/
-│   ├── getCreateTripHint/
-│   └── common/
+│   └── ...
 │
 └── docs/
     ├── screenshots/
@@ -232,42 +226,40 @@ columbia-carpool-miniapp/
 | 5-page Mini Program | ✅ |
 | Create/Join flow | ✅ |
 | CU Verification | ✅ |
-| AI suggestion | ✅ |
 | Mock data | ✅ |
 
 ### ⚠️ Planned
 
 | Feature | Status |
 |---------|--------|
+| AI departure suggestion | ⚠️ v1.1 |
 | Payment integration | ⚠️ Planned |
 | Real-time tracking | ⚠️ Planned |
-| ML recommendation | ⚠️ Planned |
 
 ---
 
 ## Roadmap
 
-```
-v1.0 (Current) ──────────────────────────────────────────────────────────────
-    ✅ Basic carpool flow
-    ✅ CU verification
-    ✅ Heuristic AI suggestion
+```mermaid
+gantt
+    title Product Roadmap
+    dateFormat  YYYY-MM
+    section v1.0
+    Basic carpool flow       :2026-01, 2026-04
+    CU verification          :2026-01, 2026-04
 
-        ▼
-v1.1 ─────────────────────────────────────────────────────────────────────
-    📝 Natural language trip creation
-    🔍 Smart search & filter
+    section v1.1
+    AI departure suggestion   :2026-05, 2026-07
+    Natural language create  :2026-05, 2026-07
 
-        ▼
-v1.2 ─────────────────────────────────────────────────────────────────────
-    📊 Historical data analysis
-    🚗 Favorite routes
+    section v1.2
+    Historical data analysis :2026-08, 2026-10
+    Favorite routes          :2026-08, 2026-10
 
-        ▼
-v2.0 ─────────────────────────────────────────────────────────────────────
-    🤖 ML recommendation model
-    🚨 GWB real-time traffic
-    ⚠️ Anomaly detection
+    section v2.0
+    ML recommendation       :2026-11, 2027-01
+    GWB real-time traffic  :2026-11, 2027-01
+    Anomaly detection       :2026-11, 2027-01
 ```
 
 ---

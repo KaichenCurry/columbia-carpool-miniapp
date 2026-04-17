@@ -5,7 +5,6 @@
 [![Stars](https://img.shields.io/github/stars/KaichenCurry/columbia-carpool-miniapp?style=flat-square)](https://github.com/KaichenCurry/columbia-carpool-miniapp/stargazers)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 [![Platform](https://img.shields.io/badge/WeChat%20Mini%20Program-07C160?style=flat-square)](https://developers.weixin.qq.com/miniprogram/dev/index.html)
-[![WeChat](https://img.shields.io/badge/WeChat-07C160?style=flat-square&logo=wechat&logoColor=white)](https://weixin.qq.com/)
 
 **面向哥大留学生的拼车小程序 — Fort Lee ↔ Columbia University**
 
@@ -22,7 +21,6 @@
 - [功能预览](#功能预览)
 - [核心功能](#核心功能)
 - [技术架构](#技术架构)
-- [AI 智能推荐](#ai-智能推荐)
 - [快速开始](#快速开始)
 - [项目结构](#项目结构)
 - [未来路线图](#未来路线图)
@@ -51,20 +49,28 @@
 
 ## 问题与解决方案
 
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                         通勤拼车三大痛点                                  │
-├────────────────────────────────────────────────────────────────────────┤
-│                                                                        │
-│   💰 费用高                      📱 协调效率低               🔒 信任难建立   │
-│   GWB 单程 $23.30             微信群刷屏找拼车            第一次拼车谁都不信谁   │
-│   独自承担太贵                   信息散乱难追踪               无法核实对方身份       │
-│        │                              │                           │        │
-│        ▼                              ▼                           ▼        │
-│   💵 多人分摊                  📋 标准化流程              ✅ 哥大认证体系      │
-│   每人仅需 $8                   一键发布/加入              身份核实有保障        │
-│                                                                        │
-└────────────────────────────────────────────────────────────────────────┘
+### 三大痛点
+
+```mermaid
+flowchart LR
+    subgraph Pain["痛点"]
+        P1["💰 费用高<br/>GWB $23.30/次"]
+        P2["📱 协调效率低<br/>微信群刷屏找拼车"]
+        P3["🔒 信任难建立<br/>无法核实对方身份"]
+    end
+
+    subgraph Solution["解决方案"]
+        S1["💵 多人分摊<br/>每人仅需 $8"]
+        S2["📋 标准化流程<br/>一键发布/加入"]
+        S3["✅ 哥大认证体系<br/>身份核实有保障"]
+    end
+
+    P1 --> S1
+    P2 --> S2
+    P3 --> S3
+
+    style Pain fill:#ffcccc,stroke:#ff6666
+    style Solution fill:#ccffcc,stroke:#66cc66
 ```
 
 ---
@@ -94,16 +100,16 @@
 
 ## 核心功能
 
-### 🛡️ 信任体系
+### 信任体系
 
 | 功能 | 说明 | 状态 |
 |------|------|------|
-| 哥大认证 | 绑定 Columbia 邮箱或学生 ID | ✅ 已实现 |
-| 车主评分 | 5 星评分系统 | ✅ 已实现 |
-| 实名车辆 | 车牌号、车型信息 | ✅ 已实现 |
-| 历史行程 | 显示车主接单次数 | ✅ 已实现 |
+| 哥大认证 | 绑定 Columbia 邮箱或学生 ID | ✅ |
+| 车主评分 | 5 星评分系统 | ✅ |
+| 实名车辆 | 车牌号、车型信息 | ✅ |
+| 历史行程 | 显示车主接单次数 | ✅ |
 
-### 💰 费用透明
+### 费用透明
 
 | 项目 | 金额 | 说明 |
 |------|------|------|
@@ -115,47 +121,41 @@
 
 ## 技术架构
 
+### 系统架构
+
+```mermaid
+flowchart TD
+    subgraph Frontend["微信小程序前端"]
+        F1["pages/index<br/>拼车广场"]
+        F2["pages/trip-detail<br/>行程详情"]
+        F3["pages/create-trip<br/>发起拼车"]
+        F4["pages/my-trips<br/>我的行程"]
+        F5["components/*<br/>复用组件"]
+        F6["services/*<br/>API 服务"]
+    end
+
+    subgraph Cloud["微信云开发"]
+        C1["createTrip<br/>创建行程"]
+        C2["joinTrip<br/>加入行程"]
+        C3["leaveTrip<br/>退出行程"]
+        C4["getTrips<br/>获取列表"]
+        C5["verifyCU<br/>哥大认证"]
+        C6["其他云函数"]
+    end
+
+    subgraph Database["微信云数据库"]
+        D1["users<br/>用户信息"]
+        D2["trips<br/>行程数据"]
+        D3["passengers<br/>乘客关系"]
+    end
+
+    Frontend --> Cloud
+    Cloud --> Database
+
+    style Frontend fill:#e3f2fd,stroke:#2196f3
+    style Cloud fill:#fff8e1,stroke:#ffc107
+    style Database fill:#e8f5e9,stroke:#4caf50
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                            微信小程序前端                                │
-│   pages/index   pages/trip-detail   pages/create-trip   pages/my-trips   │
-│                          components/*   services/*                       │
-└─────────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│                          微信云开发云函数                               │
-│                                                                          │
-│   createTrip   joinTrip   leaveTrip   cancelTrip                        │
-│   getTrips    getTripDetail   getMyTrips   getUserProfile              │
-│   verifyCU    getCreateTripHint                                            │
-└─────────────────────────────────────────────────────────────────────────┘
-                                    │
-                                    ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│                          微信云开发数据库                               │
-│                    users        trips        passengers                   │
-└─────────────────────────────────────────────────────────────────────────┘
-```
-
----
-
-## AI 智能推荐
-
-### 智能出发时间建议
-
-根据历史出行数据，AI 推荐最佳出发时间，帮助用户避开 GWB 早高峰。
-
-```json
-{
-  "departureTime": "8:30 AM",
-  "confidence": "高",
-  "reason": "根据历史数据分析，8:30 AM 出发可避开 GWB 早高峰",
-  "strategy": "heuristic_v1"
-}
-```
-
-> ⚠️ 当前为启发式算法（heuristic），未来计划升级为机器学习模型。
 
 ---
 
@@ -203,22 +203,16 @@ columbia-carpool-miniapp/
 │   └── app.js                    # 应用入口
 │
 ├── cloudfunctions/                # 云函数
-│   ├── createTrip/              # 创建行程
+│   ├── createTrip/               # 创建行程
 │   ├── joinTrip/               # 加入行程
-│   ├── leaveTrip/              # 退出行程
-│   ├── cancelTrip/             # 取消行程
 │   ├── getTrips/               # 获取行程列表
-│   ├── getTripDetail/           # 获取行程详情
-│   ├── getMyTrips/             # 获取我的行程
-│   ├── getUserProfile/         # 获取用户信息
 │   ├── verifyCU/               # 哥大认证
-│   ├── getCreateTripHint/       # AI 出发时间建议
-│   └── common/                  # 公共模块
+│   └── ...
 │
 └── docs/
     ├── screenshots/             # 功能截图
-    ├── PRD.md                   # 产品需求文档
-    └── docs_FIGMA.md           # 设计稿说明
+    ├── PRD.md                  # 产品需求文档
+    └── docs_FIGMA.md          # 设计稿说明
 ```
 
 ---
@@ -232,42 +226,40 @@ columbia-carpool-miniapp/
 | 5 页小程序界面 | ✅ |
 | 拼车创建和加入流程 | ✅ |
 | 哥大认证体系 | ✅ |
-| AI 出发时间建议 | ✅ |
 | Mock 数据调试 | ✅ |
 
 ### ⚠️ 规划中
 
 | 功能 | 状态 |
 |------|------|
+| AI 智能出发时间建议 | ⚠️ v1.1 |
 | 完整支付集成 | ⚠️ 规划中 |
 | 实时位置追踪 | ⚠️ 规划中 |
-| 机器学习推荐 | ⚠️ 规划中 |
 
 ---
 
 ## 未来路线图
 
-```
-v1.0 (当前) ──────────────────────────────────────────────────────────────
-    ✅ 基础拼车流程
-    ✅ 哥大认证
-    ✅ AI 启发式建议
+```mermaid
+gantt
+    title 产品路线图
+    dateFormat  YYYY-MM
+    section v1.0
+    基础拼车流程       :2026-01, 2026-04
+    哥大认证体系       :2026-01, 2026-04
 
-        ▼
-v1.1 ─────────────────────────────────────────────────────────────────────
-    📝 自然语言创建行程
-    🔍 智能搜索和筛选
+    section v1.1
+    AI 智能出发时间建议 :2026-05, 2026-07
+    自然语言创建行程   :2026-05, 2026-07
 
-        ▼
-v1.2 ─────────────────────────────────────────────────────────────────────
-    📊 历史数据分析
-    🚗 常用路线收藏
+    section v1.2
+    历史数据分析       :2026-08, 2026-10
+    常用路线收藏       :2026-08, 2026-10
 
-        ▼
-v2.0 ─────────────────────────────────────────────────────────────────────
-    🤖 机器学习推荐模型
-    🚨 GWB 实时路况
-    ⚠️ 异常检测和预警
+    section v2.0
+    机器学习推荐模型   :2026-11, 2027-01
+    GWB 实时路况       :2026-11, 2027-01
+    异常检测和预警     :2026-11, 2027-01
 ```
 
 ---
@@ -297,10 +289,6 @@ v2.0 ─────────────────────────
 <div align="center">
 
 **如果这个项目对你有帮助，请给它一个 ⭐！**
-
-**Star this project if you find it helpful!**
-
----
 
 *Made by [Curry Chen](https://github.com/KaichenCurry)*
 
