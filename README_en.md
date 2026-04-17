@@ -51,85 +51,44 @@ A WeChat Mini Program connecting Columbia University students commuting between 
 
 ## Problems & Solutions
 
-### Three Pain Points
-
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
 │                    3 Commuting Pain Points                              │
 ├────────────────────────────────────────────────────────────────────────┤
 │                                                                        │
 │   💰 High Toll                  📱 Inefficient Coordination   🔒 Trust │
-│   GWB $23.30/crossing         Chaos in WeChat groups      Unknown driver │
-│   Too expensive alone           Information scattered          No verification │
+│   GWB $23.30/crossing         Chaos in WeChat groups      Unknown     │
+│   Too expensive alone            Information scattered         No verify   │
 │        │                              │                           │        │
 │        ▼                              ▼                           ▼        │
-│   💵 Split the Cost             📋 Standardized Flow          ✅ CU Verification │
-│   Only $8/person               One-click post/join          Verified identity │
+│   💵 Split the Cost             📋 Standardized Flow          ✅ CU     │
+│   Only $8/person               One-click post/join         Verified    │
 │                                                                        │
 └────────────────────────────────────────────────────────────────────────┘
 ```
-
-### Our Solution
-
-| Pain Point | Solution | Implementation |
-|-----------|----------|---------------|
-| High cost | Fixed split | GWB $8/person, all-inclusive |
-| Inefficient coordination | Online management | WeChat Mini Program |
-| Trust issues | Identity verification | Columbia email verification |
 
 ---
 
 ## Features
 
-### 1. Homepage — Carpool Square
+### User Flow
 
-![Homepage](./docs/screenshots/01-homepage.png)
+![Feature Preview](./docs/screenshots/merged-flow.png)
 
-**Features**:
-- Map showing Fort Lee ↔ Columbia route
-- Real-time "X people traveled today" banner
-- Rideshare / Uber Split mode toggle
-- Trip cards (driver, time, price, seats)
+**Step 1: Homepage — Carpool Square**
+Browse available trips, view map and daily carpool stats.
 
-### 2. Trip Detail
+**Step 2: Trip Detail**
+View driver info, route timeline, cost breakdown, then join.
 
-![Trip Detail](./docs/screenshots/02-trip-detail.png)
+**Step 3: Create Trip**
+Fill in trip details, set time and seats, post your carpool.
 
-**Features**:
-- Driver info (verification badge, rating, vehicle)
-- Route timeline visualization
-- Cost breakdown (GWB $8, no hidden fees)
-- Passenger list (joined/remaining seats)
+**Step 4: My Trips**
+Manage joined trips, view active/history orders.
 
-### 3. Create Trip
-
-![Create Trip](./docs/screenshots/03-create-trip.png)
-
-**Features**:
-- Mode toggle (Rideshare / Uber Split)
-- Origin/destination selection
-- Departure time picker
-- Seat count selection
-- **AI Smart departure time suggestion**
-
-### 4. My Trips
-
-![My Trips](./docs/screenshots/04-my-trips.png)
-
-**Features**:
-- Active / History tabs
-- Trip cards with status
-- Status tags (Pending / In Progress / Completed)
-
-### 5. Confirm Join
-
-![Confirm Join](./docs/screenshots/05-confirm-join.png)
-
-**Features**:
-- Trip summary
-- Passenger preview
-- Payment method (Zelle / Venmo)
-- One-click confirm
+**Step 5: Confirm Join**
+Select payment method (Zelle/Venmo), complete the join.
 
 ---
 
@@ -152,50 +111,32 @@ A WeChat Mini Program connecting Columbia University students commuting between 
 | Gas Subsidy | Included | No extra |
 | Hidden Fees | None | Clear |
 
-### 📱 User Flow
-
-```
-Browse → View Detail → Join → Confirm Payment → My Trips
-```
-
 ---
 
 ## Technical Architecture
 
-### System Architecture
-
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                       WeChat Mini Program Frontend                       │
-│                                                                         │
-│   pages/index      pages/trip-detail    pages/create-trip    pages/my    │
-│   components/*              services/*                                  │
+│   pages/index   pages/trip-detail   pages/create-trip   pages/my-trips │
+│                          components/*   services/*                    │
 └─────────────────────────────────────────────────────────────────────────┘
                                     │
                                     ▼
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                      WeChat Cloud Functions                             │
-│                                                                         │
+│                       WeChat Cloud Functions                           │
+│                                                                          │
 │   createTrip   joinTrip   leaveTrip   cancelTrip                      │
-│   getTrips    getTripDetail   getMyTrips   getUserProfile             │
-│   verifyCU    getCreateTripHint                                           │
+│   getTrips    getTripDetail   getMyTrips   getUserProfile            │
+│   verifyCU    getCreateTripHint                                             │
 └─────────────────────────────────────────────────────────────────────────┘
                                     │
                                     ▼
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                      WeChat Cloud Database                              │
-│                    users        trips        passengers                  │
+│                       WeChat Cloud Database                            │
+│                    users        trips        passengers                │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
-
-### Tech Stack
-
-| Layer | Technology | Note |
-|-------|-----------|------|
-| Frontend | WeChat Mini Program | Native + custom components |
-| Backend | Cloud Functions | Node.js serverless |
-| Database | Cloud Database | NoSQL collections |
-| Maps | WeChat Maps API | Route & markers |
 
 ---
 
@@ -214,7 +155,7 @@ AI recommends optimal departure time based on historical data.
 }
 ```
 
-> ⚠️ **Current**: Heuristic algorithm. ML model planned for future.
+> ⚠️ Currently heuristic-based. ML model planned for future.
 
 ---
 
@@ -223,7 +164,7 @@ AI recommends optimal departure time based on historical data.
 ### Requirements
 
 | Environment | Requirement |
-|------------|-------------|
+|------------|--------------|
 | WeChat DevTools | Latest |
 | WeChat | 8.0+ |
 
@@ -236,16 +177,12 @@ cd columbia-carpool-miniapp
 
 # 2. Import in WeChat DevTools
 # Select "Import Project"
-# Choose project root directory
 
 # 3. Configure cloud environment
 # Set cloud env ID in miniprogram/app.js
 
 # 4. Create collections in WeChat Cloud Console:
 # users, trips, passengers
-
-# 5. Import seed data (optional)
-# cloudfunctions/seeds/
 ```
 
 ---
@@ -254,19 +191,29 @@ cd columbia-carpool-miniapp
 
 ```
 columbia-carpool-miniapp/
-├── miniprogram/                 # Mini Program
+├── miniprogram/                    # Mini Program
 │   ├── pages/
-│   ├── components/
-│   ├── services/
-│   └── app.js
+│   │   ├── index/               # Homepage (Carpool Square)
+│   │   ├── trip-detail/         # Trip Detail
+│   │   ├── create-trip/          # Create Trip
+│   │   ├── my-trips/             # My Trips
+│   │   └── join-confirm/         # Confirm Join
+│   ├── components/                # Reusable components
+│   ├── services/                  # API service layer
+│   └── app.js                    # App entry
 │
-├── cloudfunctions/            # Cloud Functions
+├── cloudfunctions/                # Cloud Functions
 │   ├── createTrip/
 │   ├── joinTrip/
+│   ├── leaveTrip/
+│   ├── cancelTrip/
 │   ├── getTrips/
+│   ├── getTripDetail/
+│   ├── getMyTrips/
+│   ├── getUserProfile/
 │   ├── verifyCU/
 │   ├── getCreateTripHint/
-│   └── seeds/
+│   └── common/
 │
 └── docs/
     ├── screenshots/
@@ -276,10 +223,32 @@ columbia-carpool-miniapp/
 
 ---
 
+## Project Status
+
+### ✅ Implemented
+
+| Feature | Status |
+|---------|--------|
+| 5-page Mini Program | ✅ |
+| Create/Join flow | ✅ |
+| CU Verification | ✅ |
+| AI suggestion | ✅ |
+| Mock data | ✅ |
+
+### ⚠️ Planned
+
+| Feature | Status |
+|---------|--------|
+| Payment integration | ⚠️ Planned |
+| Real-time tracking | ⚠️ Planned |
+| ML recommendation | ⚠️ Planned |
+
+---
+
 ## Roadmap
 
 ```
-v1.0 (Current) ──────────────────────────────────────────────────────────
+v1.0 (Current) ──────────────────────────────────────────────────────────────
     ✅ Basic carpool flow
     ✅ CU verification
     ✅ Heuristic AI suggestion
@@ -288,6 +257,11 @@ v1.0 (Current) ─────────────────────�
 v1.1 ─────────────────────────────────────────────────────────────────────
     📝 Natural language trip creation
     🔍 Smart search & filter
+
+        ▼
+v1.2 ─────────────────────────────────────────────────────────────────────
+    📊 Historical data analysis
+    🚗 Favorite routes
 
         ▼
 v2.0 ─────────────────────────────────────────────────────────────────────
