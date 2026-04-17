@@ -29,8 +29,10 @@ It focuses on three concrete problems:
 ### Trip Detail
 ![Trip Detail](docs/screenshots/trip-detail.jpg)
 
+### Create Trip
+![Create Trip](docs/screenshots/create-trip.png)
+
 ### More screens in Figma
-- [Create trip](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=15-2)
 - [My trips](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=19-2)
 - [Join confirmation](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=21-2)
 
