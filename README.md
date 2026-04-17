@@ -35,74 +35,45 @@
 
 ### 1. 首页 - 拼车广场
 
-![首页 - 拼车广场](./docs/screenshots/annotated_01-homepage-carpool-square.png)
+![首页 - 拼车广场](./docs/screenshots/v2_01-homepage-carpool-square.png)
 
-**操作流程**：
-1. 🔄 切换「顺风车」/「Uber 拼单」模式
-2. 📋 浏览可用行程卡片（车主、时间、价格、座位）
-3. ➕ 点击右侧「+」发布自己的行程
-4. 🧭 使用底部导航切换页面
+浏览可用行程，点击右侧 **+** 发起自己的拼车
 
 ---
 
 ### 2. 行程详情
 
-![行程详情](./docs/screenshots/annotated_02-trip-detail.png)
+![行程详情](./docs/screenshots/v2_02-trip-detail.jpg)
 
-**操作流程**：
-1. 👤 查看车主信息（认证、评分、车辆）
-2. 🛣️ 查看路线时间轴（Fort Lee → GW Bridge → Columbia）
-3. 💰 查看费用明细（GWB $8/人）
-4. 👥 查看乘客列表（谁在这辆车上）
-5. ✅ 点击「加入拼车」确认加入
+查看车主信息、路线、费用，点击底部按钮 **加入拼车**
 
 ---
 
 ### 3. 发起拼车
 
-![发起拼车](./docs/screenshots/annotated_03-create-trip.png)
+![发起拼车](./docs/screenshots/v2_03-create-trip.jpg)
 
-**操作流程**：
-1. 🔄 选择「顺风车」或「Uber 拼单」模式
-2. 📍 选择出发地和目的地（可一键互换）
-3. ⏰ 设置出发时间
-4. 👥 选择可乘人数
-5. 🚗 点击「发起拼车」发布行程
+填写行程信息，点击 **发起拼车** 发布行程
 
 ---
 
 ### 4. 我的行程
 
-![我的行程](./docs/screenshots/annotated_04-my-trips.png)
+![我的行程](./docs/screenshots/v2_04-my-trips.jpg)
 
-**操作流程**：
-1. 🔄 切换「进行中」/「历史」查看不同状态
-2. 📋 查看进行中的行程（待出发）
-3. 📜 向下滚动查看历史行程记录
-4. 🏠 使用底部导航返回其他页面
+切换「进行中」/「历史」查看不同状态的行程
 
 ---
 
 ### 5. 确认加入
 
-![确认加入](./docs/screenshots/annotated_05-confirm-join.png)
+![确认加入](./docs/screenshots/v2_05-confirm-join.jpg)
 
-**操作流程**：
-1. 👤 确认车主信息（认证、评分）
-2. 📝 查看行程概要（时间、路线）
-3. 👥 确认乘客列表（剩余座位）
-4. 💳 选择支付方式（Zelle / Venmo）
-5. 💰 点击「确认加入 · 支付 $8.00」
+确认行程和费用，点击 **确认支付**
 
 ---
 
 ## ✨ 核心功能
-
-### 产品流程
-
-```
-浏览行程 → 查看详情 → 加入拼车 → 确认支付 → 我的行程
-```
 
 ### 信任体系
 
@@ -116,7 +87,7 @@
 
 | 项目 | 说明 |
 |------|------|
-| GWB 过桥费 | 固定 $8/人（高峰时段 $23.30 均摊） |
+| GWB 过桥费 | 固定 $8/人 |
 | 油费补贴 | 已包含在固定费用中 |
 | 无隐藏费用 | 明确标注"不再额外收费" |
 
@@ -125,165 +96,85 @@
 ## 🛠️ 技术架构
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                     微信小程序前端                            │
-│  miniprogram/pages/*    components/*    services/*          │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    微信云开发云函数                          │
-│  cloudfunctions/*                                        │
-│  ├── createTrip        创建行程                            │
-│  ├── joinTrip          加入行程                            │
-│  ├── getTrips          获取行程列表                        │
-│  ├── getTripDetail     行程详情                            │
-│  ├── getMyTrips        我的行程                            │
-│  ├── verifyCU          哥大认证                            │
-│  └── getCreateTripHint AI 出发时间建议                     │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    微信云开发数据库                         │
-│  users          trips          passengers                  │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### 项目结构
-
-```
-columbia-carpool-miniapp/
-├── miniprogram/                 # 小程序前端
-│   ├── pages/
-│   │   ├── index/              # 首页（拼车广场）
-│   │   ├── trip-detail/        # 行程详情
-│   │   ├── create-trip/        # 发起拼车
-│   │   ├── my-trips/           # 我的行程
-│   │   └── confirm-join/       # 确认加入
-│   ├── components/             # 复用组件
-│   ├── services/               # API 服务层
-│   └── app.js                  # 应用入口
-│
-├── cloudfunctions/              # 云函数
-│   ├── createTrip/
-│   ├── joinTrip/
-│   ├── getTrips/
-│   ├── getTripDetail/
-│   ├── getMyTrips/
-│   ├── verifyCU/
-│   └── getCreateTripHint/      # AI 出发时间建议
-│
-└── docs/
-    ├── screenshots/            # 功能截图（含标注）
-    ├── Figma 设计稿链接
-    └── 产品需求文档
+微信小程序前端
+    └─ miniprogram/pages/*    components/*    services/*
+            │
+            ▼
+    微信云开发云函数
+    ├─ createTrip        创建行程
+    ├─ joinTrip          加入行程
+    ├─ getTrips          获取行程列表
+    ├─ getTripDetail     行程详情
+    ├─ getMyTrips        我的行程
+    ├─ verifyCU          哥大认证
+    └─ getCreateTripHint AI 出发时间建议
+            │
+            ▼
+    微信云开发数据库
+    users  trips  passengers
 ```
 
 ---
 
 ## 🤖 AI 功能（已上线）
 
-### 智能出发时间建议
-
-在发起拼车时，系统会根据历史数据给出建议出发时间：
+智能出发时间建议 — 根据历史数据推荐最佳出发时间
 
 ```json
 {
   "departureTime": "8:30 AM",
   "confidence": "高",
-  "reason": "根据历史数据分析，8:30 AM 出发可避开早高峰，准时到达",
+  "reason": "避开早高峰，准时到达",
   "strategy": "heuristic_v1"
 }
 ```
-
-**功能特点**：
-- 一键应用建议时间到表单
-- 支持切换路线/模式时自动刷新
-- 可解释的建议理由
 
 ---
 
 ## 📊 当前状态
 
-### 已实现
-
-- ✅ 5 页完整小程序界面
-- ✅ 拼车创建和加入流程
-- ✅ 行程详情和我的行程
-- ✅ 云函数完整骨架
-- ✅ 本地 Mock 数据支持调试
-- ✅ 哥大认证体系
-- ✅ 智能出发时间建议
-
-### 局限性
-
-- ⚠️ 部分选择器使用占位交互
-- ⚠️ 支付结算未集成
-- ⚠️ 实时行程追踪未实现
-- ⚠️ AI 为启发式，非模型驱动
+| 已实现 | 局限性 |
+|--------|--------|
+| ✅ 5 页完整界面 | ⚠️ 部分交互占位 |
+| ✅ 拼车流程 | ⚠️ 支付未集成 |
+| ✅ 云函数骨架 | ⚠️ 实时追踪未实现 |
+| ✅ Mock 数据调试 | ⚠️ AI 为启发式 |
 
 ---
 
 ## 🚀 快速开始
 
-### 环境要求
-
-- 微信开发者工具
-- 微信云开发环境
-
-### 运行步骤
-
 ```bash
 # 1. 克隆项目
 git clone https://github.com/KaichenCurry/columbia-carpool-miniapp.git
-cd columbia-carpool-miniapp
 
 # 2. 用微信开发者工具打开
-# 导入项目，选择 project.config.json
+# 导入 project.config.json
 
-# 3. 配置云开发环境
-# 在 miniprogram/app.js 中设置云环境 ID
+# 3. 配置云环境 ID
+# 在 miniprogram/app.js 中设置
 
-# 4. 创建云数据库集合
-# 导入 cloudfunctions/seeds/ 中的种子数据
-```
-
-### 种子数据
-
-```bash
+# 4. 导入种子数据
 cloudfunctions/seeds/
-├── users.seed.json   # 用户数据
-└── trips.seed.json   # 行程数据
 ```
 
 ---
 
-## 🗺️ 未来路线图
+## 🗺️ 路线图
 
 | 版本 | 功能 |
 |------|------|
 | v1.1 | 自然语言创建行程 |
-| v1.2 | 智能路线推荐（基于历史模式） |
+| v1.2 | 智能路线推荐 |
 | v1.3 | 高峰期需求预测 |
-| v2.0 | GWB 实时路况提醒 |
-| v2.0 | 异常取消检测 |
+| v2.0 | GWB 实时路况、异常检测 |
 
 ---
 
 ## 🔗 链接
 
-| 资源 | 链接 |
-|------|------|
-| GitHub | https://github.com/KaichenCurry/columbia-carpool-miniapp |
-| Figma 设计稿 | [首页](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/拼车-UI?node-id=6-2) |
-| 产品文档 | [docs/](docs) |
-
----
-
-## 📜 License
-
-[MIT License](./LICENSE)
+- GitHub: https://github.com/KaichenCurry/columbia-carpool-miniapp
+- Figma: [首页](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/拼车-UI?node-id=6-2)
 
 ---
 
