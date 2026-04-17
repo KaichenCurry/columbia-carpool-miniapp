@@ -47,16 +47,6 @@ The current MVP supports two ride modes:
 
 ## Product Showcase
 
-### Main screen
-
-![Homepage](docs/screenshots/home.jpg)
-
-### Key screens
-
-| Trip Detail | Create Trip |
-|---|---|
-| ![Trip Detail](docs/screenshots/trip-detail.jpg) | ![Create Trip](docs/screenshots/create-trip.png) |
-
 ### Figma entry points
 
 - [Homepage](https://www.figma.com/design/NHrWvqG4BzihpYZu9Y0Ugg/%E6%8B%BC%E8%BD%A6-UI?node-id=6-2)
